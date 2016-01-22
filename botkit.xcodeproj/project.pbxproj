@@ -10,6 +10,8 @@
 		555E0E751C509CE300E6BB92 /* botkit.h in Headers */ = {isa = PBXBuildFile; fileRef = 555E0E741C509CE300E6BB92 /* botkit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		555E0E7C1C509CE300E6BB92 /* botkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555E0E711C509CE300E6BB92 /* botkit.framework */; };
 		555E0E811C509CE300E6BB92 /* botkitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0E801C509CE300E6BB92 /* botkitTests.swift */; };
+		555E0EA71C51E19600E6BB92 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555E0EA01C51E18E00E6BB92 /* SocketRocket.framework */; };
+		555E0EA91C51E1A700E6BB92 /* SocketRocket.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 555E0EA01C51E18E00E6BB92 /* SocketRocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,7 +22,56 @@
 			remoteGlobalIDString = 555E0E701C509CE300E6BB92;
 			remoteInfo = botkit;
 		};
+		555E0E9D1C51E18E00E6BB92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F6B2082D1450F597009315AF;
+			remoteInfo = SocketRocket;
+		};
+		555E0E9F1C51E18E00E6BB92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F668C880153E91210044DBAC;
+			remoteInfo = SocketRocketOSX;
+		};
+		555E0EA11C51E18E00E6BB92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D4227621BB4358C000C1A6C;
+			remoteInfo = "SocketRocket-iOS";
+		};
+		555E0EA31C51E18E00E6BB92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F6BDA802145900D200FE3253;
+			remoteInfo = SRWebSocketTests;
+		};
+		555E0EA51C51E18E00E6BB92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F62417E314D52F3C003CE997;
+			remoteInfo = TestChat;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		555E0E931C51E0D600E6BB92 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				555E0EA91C51E1A700E6BB92 /* SocketRocket.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		555E0E711C509CE300E6BB92 /* botkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = botkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +80,7 @@
 		555E0E7B1C509CE300E6BB92 /* botkitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = botkitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		555E0E801C509CE300E6BB92 /* botkitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = botkitTests.swift; sourceTree = "<group>"; };
 		555E0E821C509CE300E6BB92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SocketRocket.xcodeproj; path = Submodules/SocketRocket/SocketRocket.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				555E0EA71C51E19600E6BB92 /* SocketRocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +106,7 @@
 		555E0E671C509CE300E6BB92 = {
 			isa = PBXGroup;
 			children = (
+				555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */,
 				555E0E731C509CE300E6BB92 /* botkit */,
 				555E0E7F1C509CE300E6BB92 /* botkitTests */,
 				555E0E721C509CE300E6BB92 /* Products */,
@@ -86,6 +140,18 @@
 			path = botkitTests;
 			sourceTree = "<group>";
 		};
+		555E0E961C51E18E00E6BB92 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				555E0E9E1C51E18E00E6BB92 /* libSocketRocket.a */,
+				555E0EA01C51E18E00E6BB92 /* SocketRocket.framework */,
+				555E0EA21C51E18E00E6BB92 /* SocketRocket.framework */,
+				555E0EA41C51E18E00E6BB92 /* SRWebSocketTests.xctest */,
+				555E0EA61C51E18E00E6BB92 /* TestChat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -108,6 +174,7 @@
 				555E0E6D1C509CE300E6BB92 /* Frameworks */,
 				555E0E6E1C509CE300E6BB92 /* Headers */,
 				555E0E6F1C509CE300E6BB92 /* Resources */,
+				555E0E931C51E0D600E6BB92 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -164,6 +231,12 @@
 			mainGroup = 555E0E671C509CE300E6BB92;
 			productRefGroup = 555E0E721C509CE300E6BB92 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 555E0E961C51E18E00E6BB92 /* Products */;
+					ProjectRef = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				555E0E701C509CE300E6BB92 /* botkit */,
@@ -171,6 +244,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		555E0E9E1C51E18E00E6BB92 /* libSocketRocket.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSocketRocket.a;
+			remoteRef = 555E0E9D1C51E18E00E6BB92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		555E0EA01C51E18E00E6BB92 /* SocketRocket.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SocketRocket.framework;
+			remoteRef = 555E0E9F1C51E18E00E6BB92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		555E0EA21C51E18E00E6BB92 /* SocketRocket.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SocketRocket.framework;
+			remoteRef = 555E0EA11C51E18E00E6BB92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		555E0EA41C51E18E00E6BB92 /* SRWebSocketTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SRWebSocketTests.xctest;
+			remoteRef = 555E0EA31C51E18E00E6BB92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		555E0EA61C51E18E00E6BB92 /* TestChat.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = TestChat.app;
+			remoteRef = 555E0EA51C51E18E00E6BB92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		555E0E6F1C509CE300E6BB92 /* Resources */ = {
@@ -305,6 +416,7 @@
 		555E0E861C509CE300E6BB92 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -317,12 +429,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.utahiosmac.botkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		555E0E871C509CE300E6BB92 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -379,6 +493,7 @@
 				555E0E871C509CE300E6BB92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		555E0E881C509CE300E6BB92 /* Build configuration list for PBXNativeTarget "botkitTests" */ = {
 			isa = XCConfigurationList;
@@ -387,6 +502,7 @@
 				555E0E8A1C509CE300E6BB92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
