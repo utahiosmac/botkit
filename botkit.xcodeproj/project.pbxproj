@@ -14,6 +14,9 @@
 		555E0EA91C51E1A700E6BB92 /* SocketRocket.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 555E0EA01C51E18E00E6BB92 /* SocketRocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		555E0EBD1C530E0900E6BB92 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0EBC1C530E0900E6BB92 /* WebSocket.swift */; };
 		55C9620B1C542AAC00277A4A /* SlackConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620A1C542AAC00277A4A /* SlackConnectionState.swift */; };
+		55C9620D1C542ABC00277A4A /* WaitingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620C1C542ABC00277A4A /* WaitingState.swift */; };
+		55C9620F1C542AD000277A4A /* RetrieveSocketURLState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620E1C542AD000277A4A /* RetrieveSocketURLState.swift */; };
+		55C962111C542AEA00277A4A /* WebSocketState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C962101C542AEA00277A4A /* WebSocketState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,9 @@
 		555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SocketRocket.xcodeproj; path = Submodules/SocketRocket/SocketRocket.xcodeproj; sourceTree = "<group>"; };
 		555E0EBC1C530E0900E6BB92 /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		55C9620A1C542AAC00277A4A /* SlackConnectionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackConnectionState.swift; sourceTree = "<group>"; };
+		55C9620C1C542ABC00277A4A /* WaitingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingState.swift; sourceTree = "<group>"; };
+		55C9620E1C542AD000277A4A /* RetrieveSocketURLState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrieveSocketURLState.swift; sourceTree = "<group>"; };
+		55C962101C542AEA00277A4A /* WebSocketState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +167,9 @@
 			isa = PBXGroup;
 			children = (
 				55C9620A1C542AAC00277A4A /* SlackConnectionState.swift */,
+				55C9620C1C542ABC00277A4A /* WaitingState.swift */,
+				55C9620E1C542AD000277A4A /* RetrieveSocketURLState.swift */,
+				55C962101C542AEA00277A4A /* WebSocketState.swift */,
 				555E0EBC1C530E0900E6BB92 /* WebSocket.swift */,
 			);
 			name = "Slack Connection";
@@ -320,7 +329,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				555E0EBD1C530E0900E6BB92 /* WebSocket.swift in Sources */,
+				55C9620F1C542AD000277A4A /* RetrieveSocketURLState.swift in Sources */,
 				55C9620B1C542AAC00277A4A /* SlackConnectionState.swift in Sources */,
+				55C9620D1C542ABC00277A4A /* WaitingState.swift in Sources */,
+				55C962111C542AEA00277A4A /* WebSocketState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
