@@ -6,7 +6,7 @@
 //  Copyright © 2016 Utah iOS & Mac Developers. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for botkit.
 FOUNDATION_EXPORT double botkitVersionNumber;
