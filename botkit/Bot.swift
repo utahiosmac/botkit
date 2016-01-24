@@ -10,6 +10,7 @@ import Foundation
 
 public class Bot {
     private let connection: SlackConnection
+    private let ruleController = RuleController()
     
     public init(authorizationToken: String) {
         let configuration = SlackConnectionConfiguration(token: authorizationToken)
@@ -21,6 +22,7 @@ public class Bot {
     
     private func receiveEvent(event: String) {
         guard let basicEvent = BasicSlackEvent(jsonString: event) else { return }
+        ruleController.processEvent(basicEvent)
     }
     
 }
