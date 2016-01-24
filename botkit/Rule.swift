@@ -8,17 +8,17 @@
 
 import Foundation
 
-public struct Rule {
+public enum RuleDisposition {
+    case Skip
+    case Handle
+    case HandleAndAbort
+}
+
+public protocol Rule {
     
-    public enum Disposition {
-        case Skip
-        case Handle
-        case HandleAndAbort
-    }
+    var triggeringEvent: SlackEventType { get }
     
-    public let triggeringEvent: SlackEventType
-    
-    public let condition: SlackEvent -> Disposition
-    public let action: (SlackEvent, Void -> Void) -> Void
+    var condition: SlackEvent -> RuleDisposition { get }
+    var action: (SlackEvent, Void -> Void) -> Void { get }
     
 }
