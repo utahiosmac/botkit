@@ -17,7 +17,12 @@ internal class RuleController {
         case Continue
     }
     
-    init() { }
+    init() {
+        defaultRules = [
+            IgnoreEventsRule(.UserTyping, .PresenceChange, .ManualPresenceChange)
+        ]
+    
+    }
     
     internal func processEvent(event: SlackEvent) {
         let action = sendEvent(event, toRules: defaultRules, waitUntilDone: true)

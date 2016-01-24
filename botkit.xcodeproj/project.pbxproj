@@ -12,6 +12,7 @@
 		552F17EC1C5525CC008B9940 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F17EB1C5525CC008B9940 /* Rule.swift */; };
 		552F17EE1C5526A5008B9940 /* BasicSlackEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F17ED1C5526A5008B9940 /* BasicSlackEvent.swift */; };
 		552F17F11C552936008B9940 /* RuleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F17F01C552936008B9940 /* RuleController.swift */; };
+		552F17F31C553726008B9940 /* IgnoreEventsRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F17F21C553726008B9940 /* IgnoreEventsRule.swift */; };
 		555E0E751C509CE300E6BB92 /* botkit.h in Headers */ = {isa = PBXBuildFile; fileRef = 555E0E741C509CE300E6BB92 /* botkit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		555E0E7C1C509CE300E6BB92 /* botkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555E0E711C509CE300E6BB92 /* botkit.framework */; };
 		555E0E811C509CE300E6BB92 /* botkitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0E801C509CE300E6BB92 /* botkitTests.swift */; };
@@ -93,6 +94,7 @@
 		552F17EB1C5525CC008B9940 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 		552F17ED1C5526A5008B9940 /* BasicSlackEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicSlackEvent.swift; sourceTree = "<group>"; };
 		552F17F01C552936008B9940 /* RuleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleController.swift; sourceTree = "<group>"; };
+		552F17F21C553726008B9940 /* IgnoreEventsRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IgnoreEventsRule.swift; sourceTree = "<group>"; };
 		555E0E711C509CE300E6BB92 /* botkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = botkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		555E0E741C509CE300E6BB92 /* botkit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = botkit.h; sourceTree = "<group>"; };
 		555E0E761C509CE300E6BB92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			children = (
 				552F17F01C552936008B9940 /* RuleController.swift */,
 				552F17EB1C5525CC008B9940 /* Rule.swift */,
+				552F17F21C553726008B9940 /* IgnoreEventsRule.swift */,
 			);
 			name = "Bot Rules";
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				552F17EE1C5526A5008B9940 /* BasicSlackEvent.swift in Sources */,
+				552F17F31C553726008B9940 /* IgnoreEventsRule.swift in Sources */,
 				555E0EC21C531A8100E6BB92 /* Bot.swift in Sources */,
 				552F17E31C550EAB008B9940 /* SlackEventType.swift in Sources */,
 				555E0EBD1C530E0900E6BB92 /* WebSocket.swift in Sources */,
