@@ -29,12 +29,14 @@ internal class WebSocket: NSObject {
         socket.delegate = self
     }
     
-    deinit {
-        dispatch_source_cancel(timerSource)
-    }
-    
     func open() {
         socket.open()
+    }
+    
+    private func close() {
+        socket.delegate = nil
+        dispatch_source_cancel(timerSource)
+        onClose?(socketError)
     }
 }
 
@@ -46,10 +48,12 @@ extension WebSocket: SRWebSocketDelegate {
         
         dispatch_source_set_timer(timerSource, startTime, UInt64(intervalInNSec), NSEC_PER_SEC / 10)
         dispatch_source_set_event_handler(timerSource) { [unowned self] in
-            if self.receivedLastPong == false || self.socket.readyState == .CLOSING || self.socket.readyState == .CLOSED {
+            if self.receivedLastPong == false {
                 // we did not receive the last pong
                 // abort the socket so that we can spin up a new connection
                 self.socket.close()
+            } else if self.socket.readyState == .CLOSED || self.socket.readyState == .CLOSING {
+                self.close()
             } else {
                 // we got a pong recently
                 // send another ping
@@ -72,14 +76,13 @@ extension WebSocket: SRWebSocketDelegate {
     }
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
-        // if this gets called, then we'll also get the "didCloseWithCode"
-        // save the error we get here so it can be inspected in the didCloseWithCode: method
+        // save the error we can pass it back through the onClose closure
         socketError = error
+        close()
     }
     
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        // maybe boo?
-        onClose?(socketError)
-        dispatch_suspend(timerSource)
+        // tear it all down
+        close()
     }
 }
