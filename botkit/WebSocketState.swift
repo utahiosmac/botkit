@@ -10,15 +10,15 @@ import Foundation
 
 internal class WebSocketState: SlackConnectionState {
     
-    private let token: String
+    private let configuration: SlackConnectionConfiguration
     private let socket: WebSocket
     
     var onExit: ((old: SlackConnectionState, new: SlackConnectionState) -> Void)?
     var onEvent: (String -> Void)?
     
-    init(token: String, socketURL: NSURL) {
-        self.token = token
-        self.socket = WebSocket(socketURL: socketURL)
+    init(configuration: SlackConnectionConfiguration, socketURL: NSURL) {
+        self.configuration = configuration
+        self.socket = WebSocket(socketURL: socketURL, pingInterval: configuration.pingInterval)
     }
     
     func enter() {
@@ -28,10 +28,10 @@ internal class WebSocketState: SlackConnectionState {
         
         socket.onEvent = onEvent
         
-        let token = self.token
+        let configuration = self.configuration
         socket.onClose = { [unowned self] error in
             NSLog("Closing socket (error: %@)", error ?? "none")
-            onExit(old: self, new: WaitingState(token: token))
+            onExit(old: self, new: WaitingState(configuration: configuration))
         }
         
         socket.open()

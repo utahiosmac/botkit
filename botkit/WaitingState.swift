@@ -11,11 +11,11 @@ import Foundation
 internal class WaitingState: SlackConnectionState {
     
     var onExit: ((old: SlackConnectionState, new: SlackConnectionState) -> Void)?
-    private let token: String
+    private let configuration: SlackConnectionConfiguration
     var delay: NSTimeInterval = 0
     
-    init(token: String) {
-        self.token = token
+    init(configuration: SlackConnectionConfiguration) {
+        self.configuration = configuration
     }
     
     func enter() {
@@ -23,7 +23,7 @@ internal class WaitingState: SlackConnectionState {
             fatalError("Cannot enter state without a way to exit it")
         }
         
-        let nextState = RetrieveSocketURLState(token: token)
+        let nextState = RetrieveSocketURLState(configuration: configuration)
         let handler = { onExit(old: self, new: nextState) }
         
         if delay > 0 {

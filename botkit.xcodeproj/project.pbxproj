@@ -19,6 +19,7 @@
 		55C9620D1C542ABC00277A4A /* WaitingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620C1C542ABC00277A4A /* WaitingState.swift */; };
 		55C9620F1C542AD000277A4A /* RetrieveSocketURLState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620E1C542AD000277A4A /* RetrieveSocketURLState.swift */; };
 		55C962111C542AEA00277A4A /* WebSocketState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C962101C542AEA00277A4A /* WebSocketState.swift */; };
+		55C9621C1C54755F00277A4A /* SlackConnectionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9621B1C54755F00277A4A /* SlackConnectionConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		55C9620C1C542ABC00277A4A /* WaitingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingState.swift; sourceTree = "<group>"; };
 		55C9620E1C542AD000277A4A /* RetrieveSocketURLState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrieveSocketURLState.swift; sourceTree = "<group>"; };
 		55C962101C542AEA00277A4A /* WebSocketState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketState.swift; sourceTree = "<group>"; };
+		55C9621B1C54755F00277A4A /* SlackConnectionConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackConnectionConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				555E0EC31C531D2E00E6BB92 /* SlackConnection.swift */,
+				55C9621B1C54755F00277A4A /* SlackConnectionConfiguration.swift */,
 				55C9620A1C542AAC00277A4A /* SlackConnectionState.swift */,
 				55C9620C1C542ABC00277A4A /* WaitingState.swift */,
 				55C9620E1C542AD000277A4A /* RetrieveSocketURLState.swift */,
@@ -341,6 +344,7 @@
 				55C9620B1C542AAC00277A4A /* SlackConnectionState.swift in Sources */,
 				55C9620D1C542ABC00277A4A /* WaitingState.swift in Sources */,
 				55C962111C542AEA00277A4A /* WebSocketState.swift in Sources */,
+				55C9621C1C54755F00277A4A /* SlackConnectionConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

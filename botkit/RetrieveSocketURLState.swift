@@ -11,14 +11,14 @@ import Foundation
 internal class RetrieveSocketURLState: SlackConnectionState {
     
     var onExit: ((old: SlackConnectionState, new: SlackConnectionState) -> Void)?
-    private let token: String
+    private let configuration: SlackConnectionConfiguration
     
-    init(token: String) {
-        self.token = token
+    init(configuration: SlackConnectionConfiguration) {
+        self.configuration = configuration
     }
     
     func enter() {
-        guard let url = NSURL(string: "https://slack.com/api/rtm.start?token=\(token)") else {
+        guard let url = NSURL(string: "https://slack.com/api/rtm.start?token=\(configuration.token)") else {
             fatalError("Unable to construct Slack connection URL")
         }
         
@@ -36,8 +36,8 @@ internal class RetrieveSocketURLState: SlackConnectionState {
             fatalError("Cannot enter state without a way to exit it")
         }
         
-        let token = self.token
-        let errorHandler = { onExit(old: self, new: WaitingState(token: token)) }
+        let configuration = self.configuration
+        let errorHandler = { onExit(old: self, new: WaitingState(configuration: configuration)) }
         
         guard let data = data else {
             NSLog("No response data from Slack")
@@ -74,7 +74,7 @@ internal class RetrieveSocketURLState: SlackConnectionState {
             return
         }
         
-        let nextState = WebSocketState(token: token, socketURL: socketURL)
+        let nextState = WebSocketState(configuration: configuration, socketURL: socketURL)
         onExit(old: self, new: nextState)
     }
 }

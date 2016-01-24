@@ -18,10 +18,12 @@ internal class WebSocket: NSObject {
     internal var onClose: (NSError? -> Void)?
     
     private let timerSource: dispatch_source_t
+    private let pingInterval: NSTimeInterval
     
-    init(socketURL: NSURL) {
-        socket = SRWebSocket(URL: socketURL)
-        timerSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue())
+    init(socketURL: NSURL, pingInterval: NSTimeInterval) {
+        self.socket = SRWebSocket(URL: socketURL)
+        self.pingInterval = pingInterval
+        self.timerSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue())
         
         super.init()
         socket.delegate = self
@@ -39,7 +41,6 @@ internal class WebSocket: NSObject {
 extension WebSocket: SRWebSocketDelegate {
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        let pingInterval = 5.0
         let intervalInNSec = Int64(pingInterval * Double(NSEC_PER_SEC))
         let startTime = dispatch_time(DISPATCH_TIME_NOW, intervalInNSec)
         
@@ -47,6 +48,7 @@ extension WebSocket: SRWebSocketDelegate {
         dispatch_source_set_event_handler(timerSource) { [unowned self] in
             if self.receivedLastPong == false {
                 // we did not receive the last pong
+                // abort the socket so that we can spin up a new connection
                 self.socket.close()
             } else {
                 // we got a pong recently

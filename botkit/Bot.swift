@@ -12,7 +12,8 @@ public class Bot {
     private let connection: SlackConnection
     
     public init(authorizationToken: String) {
-        connection = SlackConnection(token: authorizationToken)
+        let configuration = SlackConnectionConfiguration(token: authorizationToken)
+        connection = SlackConnection(configuration: configuration)
         connection.onEvent = { [unowned self] in
             self.receiveEvent($0)
         }

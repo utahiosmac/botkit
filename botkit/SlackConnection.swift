@@ -12,14 +12,14 @@ internal class SlackConnection {
     
     private var state: SlackConnectionState
     private var delay: NSTimeInterval = 0
-    private let token: String
+    private let configuration: SlackConnectionConfiguration
     
     var onEvent: (String -> Void)?
     
-    internal init(token: String) {
-        self.token = token
+    internal init(configuration: SlackConnectionConfiguration) {
+        self.configuration = configuration
         
-        self.state = WaitingState(token: token)
+        self.state = WaitingState(configuration: configuration)
         moveToState(self.state)
     }
     
