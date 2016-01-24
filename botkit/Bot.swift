@@ -20,7 +20,7 @@ public class Bot {
     }
     
     private func receiveEvent(event: String) {
-        NSLog("received: %@", event)
+        guard let basicEvent = BasicSlackEvent(jsonString: event) else { return }
     }
     
 }
