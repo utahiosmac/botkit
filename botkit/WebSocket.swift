@@ -46,7 +46,7 @@ extension WebSocket: SRWebSocketDelegate {
         
         dispatch_source_set_timer(timerSource, startTime, UInt64(intervalInNSec), NSEC_PER_SEC / 10)
         dispatch_source_set_event_handler(timerSource) { [unowned self] in
-            if self.receivedLastPong == false {
+            if self.receivedLastPong == false || self.socket.readyState == .CLOSING || self.socket.readyState == .CLOSED {
                 // we did not receive the last pong
                 // abort the socket so that we can spin up a new connection
                 self.socket.close()
