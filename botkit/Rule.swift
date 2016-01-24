@@ -15,10 +15,6 @@ public enum RuleDisposition {
 }
 
 public protocol Rule {
-    
-    var triggeringEvent: SlackEventType { get }
-    
-    var condition: SlackEvent -> RuleDisposition { get }
-    var action: (SlackEvent, Void -> Void) -> Void { get }
-    
+    func dispositionForEvent(event: SlackEvent) -> RuleDisposition
+    func executeActionForEvent(event: SlackEvent, completion: Void -> Void)
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 internal class RuleController {
-    private let defaultRules = Array<Rule>()
+    private let defaultRules: Array<Rule>
     private var externalRules = Array<Rule>()
     
     private enum RuleAction {
@@ -36,8 +36,6 @@ internal class RuleController {
     }
     
     private func sendEvent(event: SlackEvent, toRule rule: Rule, waitUntilDone: Bool) -> RuleAction {
-        guard event.eventType == rule.triggeringEvent else { return .Continue }
-        
         let notifyOfCompletion: Void -> Void
         let waitUntilCompletion: Void -> Void
         
@@ -50,14 +48,14 @@ internal class RuleController {
             waitUntilCompletion = { }
         }
         
-        let disposition = rule.condition(event)
+        let disposition = rule.dispositionForEvent(event)
         
         // this rule does not match
         // return false to indicate that this rule does not abort rule execution
         if disposition == .Skip { return .Continue }
         
         // this rule matches; execute its action
-        rule.action(event, notifyOfCompletion)
+        rule.executeActionForEvent(event, completion: notifyOfCompletion)
         waitUntilCompletion()
         
         // if waitUntilDone is false, then we will likely return here before the rule has finished executing its action
