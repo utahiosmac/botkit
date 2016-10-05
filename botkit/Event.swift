@@ -24,7 +24,11 @@ public extension StandardEventType {
     
     init?(event: String) {
         guard let data = event.data(using: .utf8) else { return nil }
-        guard let json = try? JSON(data) else { return nil }
+        guard let json = try? JSON(data: data) else { return nil }
+        guard json.isUnknown == false else {
+            print("Unable to create JSON from \(event)")
+            return nil
+        }
         do {
             try self.init(json: json)
         } catch _ {

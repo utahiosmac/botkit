@@ -61,6 +61,36 @@ public extension Channel {
         }
     }
     
+    public struct PurposeChanged: StandardEventType {
+        public let channel: Channel
+        public let user: User
+        public let purpose: String
+        
+        public init(json: JSON) throws {
+            try json.match(type: "message")
+            try json.match(subtype: "channel_purpose")
+            
+            channel = try json.value(for: "channel")
+            user = try json.value(for: "user")
+            purpose = try json.value(for: "purpose")
+        }
+    }
+    
+    public struct TopicChanged: StandardEventType {
+        public let channel: Channel
+        public let user: User
+        public let topic: String
+        
+        public init(json: JSON) throws {
+            try json.match(type: "message")
+            try json.match(subtype: "channel_topic")
+            
+            channel = try json.value(for: "channel")
+            user = try json.value(for: "user")
+            topic = try json.value(for: "topic")
+        }
+    }
+    
     public struct UserJoined: StandardEventType {
         public let channel: Channel
         public let user: User
@@ -82,6 +112,17 @@ public extension Channel {
             try json.match(subtype: "channel_leave")
             channel = try json.value(for: "channel")
             user = try json.value(for: "user")
+        }
+    }
+    
+    public struct MessagePosted: StandardEventType {
+        public let message: Message
+        
+        public init(json: JSON) throws {
+            try json.match(type: "message")
+            guard json["subtype"].isUnknown else { throw JSONError(message: "Event type is a specialized Message") }
+            
+            message = try Message(json: json)
         }
     }
 }

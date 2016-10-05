@@ -8,12 +8,6 @@
 
 import Foundation
 
-internal enum RuleDisposition {
-    case skip
-    case handle
-    case handleAndAbort
-}
-
 internal protocol RuleType {
     
     func handle(event: String, completion: () -> Void) -> RuleDisposition
