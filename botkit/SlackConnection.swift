@@ -11,10 +11,10 @@ import Foundation
 internal class SlackConnection {
     
     private var state: SlackConnectionState
-    private var delay: NSTimeInterval = 0
+    private var delay: TimeInterval = 0
     private let configuration: SlackConnectionConfiguration
     
-    var onEvent: (String -> Void)?
+    var onEvent: ((String) -> Void)?
     
     internal init(configuration: SlackConnectionConfiguration) {
         self.configuration = configuration
@@ -23,7 +23,7 @@ internal class SlackConnection {
         moveToState(self.state)
     }
     
-    private func moveToState(newState: SlackConnectionState) {
+    private func moveToState(_ newState: SlackConnectionState) {
         NSLog("Entering \(newState)")
         
         newState.onExit = { [unowned self] oldState, nextState in

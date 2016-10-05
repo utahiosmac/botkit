@@ -18,18 +18,18 @@ internal class RetrieveSocketURLState: SlackConnectionState {
     }
     
     func enter() {
-        guard let url = NSURL(string: "https://slack.com/api/rtm.start?token=\(configuration.token)") else {
+        guard let url = URL(string: "https://slack.com/api/rtm.start?token=\(configuration.token)") else {
             fatalError("Unable to construct Slack connection URL")
         }
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url) { [unowned self] data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { [unowned self] data, response, error in
             self.handleResponse(data, response: response, error: error)
             
         }
         task.resume()
     }
     
-    private func handleResponse(data: NSData?, response: NSURLResponse?, error: NSError?) {
+    private func handleResponse(_ data: Data?, response: URLResponse?, error: NSError?) {
         // must get the right info from the data
         // otherwise we log stuff and go back to Waiting
         guard let onExit = onExit else {
@@ -50,7 +50,7 @@ internal class RetrieveSocketURLState: SlackConnectionState {
             return
         }
         
-        guard let rawJSON = try? NSJSONSerialization.JSONObjectWithData(data, options: []) else {
+        guard let rawJSON = try? JSONSerialization.jsonObject(with: data, options: []) else {
             NSLog("Unable to decode response data as JSON")
             errorHandler()
             return
@@ -68,7 +68,7 @@ internal class RetrieveSocketURLState: SlackConnectionState {
             return
         }
         
-        guard let socketURL = NSURL(string: rawSocketURL) else {
+        guard let socketURL = URL(string: rawSocketURL) else {
             NSLog("Socket URL is not a valid URL")
             errorHandler()
             return

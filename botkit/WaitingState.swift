@@ -12,7 +12,7 @@ internal class WaitingState: SlackConnectionState {
     
     var onExit: ((old: SlackConnectionState, new: SlackConnectionState) -> Void)?
     private let configuration: SlackConnectionConfiguration
-    var delay: NSTimeInterval = 0
+    var delay: TimeInterval = 0
     
     init(configuration: SlackConnectionConfiguration) {
         self.configuration = configuration
@@ -27,8 +27,8 @@ internal class WaitingState: SlackConnectionState {
         let handler = { onExit(old: self, new: nextState) }
         
         if delay > 0 {
-            let when = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
-            dispatch_after(when, dispatch_get_global_queue(0, 0), handler);
+            let when = DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            DispatchQueue.global().asyncAfter(deadline: when, execute: handler);
         } else {
             handler()
         }

@@ -14,16 +14,16 @@ internal class WebSocket: NSObject {
     private var socketError: NSError?
     private var receivedLastPong = true
     
-    internal var onEvent: (String -> Void)?
-    internal var onClose: (NSError? -> Void)?
+    internal var onEvent: ((String) -> Void)?
+    internal var onClose: ((NSError?) -> Void)?
     
-    private let timerSource: dispatch_source_t
-    private let pingInterval: NSTimeInterval
+    private let timerSource: DispatchSourceTimer
+    private let pingInterval: TimeInterval
     
-    init(socketURL: NSURL, pingInterval: NSTimeInterval) {
-        self.socket = SRWebSocket(URL: socketURL)
+    init(socketURL: URL, pingInterval: TimeInterval) {
+        self.socket = SRWebSocket(url: socketURL)
         self.pingInterval = pingInterval
-        self.timerSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue())
+        self.timerSource = DispatchSource.makeTimerSource(flags: [], queue: .main)
         
         super.init()
         socket.delegate = self
@@ -35,19 +35,19 @@ internal class WebSocket: NSObject {
     
     private func close() {
         socket.delegate = nil
-        dispatch_source_cancel(timerSource)
+        timerSource.cancel()
         onClose?(socketError)
     }
 }
 
 extension WebSocket: SRWebSocketDelegate {
     
-    func webSocketDidOpen(webSocket: SRWebSocket!) {
-        let intervalInNSec = Int64(pingInterval * Double(NSEC_PER_SEC))
-        let startTime = dispatch_time(DISPATCH_TIME_NOW, intervalInNSec)
+    func webSocketDidOpen(_ webSocket: SRWebSocket!) {
+        let intervalInNSec = pingInterval * Double(NSEC_PER_SEC)
+        let startTime = DispatchTime.now() + Double(intervalInNSec) / Double(NSEC_PER_SEC)
         
-        dispatch_source_set_timer(timerSource, startTime, UInt64(intervalInNSec), NSEC_PER_SEC / 10)
-        dispatch_source_set_event_handler(timerSource) { [unowned self] in
+        timerSource.scheduleRepeating(deadline: startTime, interval: pingInterval, leeway: .nanoseconds(Int(NSEC_PER_SEC / 10)))
+        timerSource.setEventHandler { [unowned self] in
             if self.receivedLastPong == false {
                 // we did not receive the last pong
                 // abort the socket so that we can spin up a new connection
@@ -58,30 +58,30 @@ extension WebSocket: SRWebSocketDelegate {
                 // we got a pong recently
                 // send another ping
                 self.receivedLastPong = false
-                self.socket.sendPing(nil)
+                try? self.socket.sendPing(nil)
             }
         }
-        dispatch_resume(timerSource)
+        timerSource.resume()
     }
     
-    func webSocket(webSocket: SRWebSocket!, didReceivePong pongPayload: NSData!) {
+    func webSocket(_ webSocket: SRWebSocket!, didReceivePong pongPayload: Data!) {
         self.receivedLastPong = true
     }
     
-    func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
+    func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
         // messages from the socket can either be NSData or NSString
         // we don't particularly care about data messages
         guard let string = message as? String else { return }
         onEvent?(string)
     }
     
-    func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
+    func webSocket(_ webSocket: SRWebSocket!, didFailWithError error: NSError!) {
         // save the error we can pass it back through the onClose closure
         socketError = error
         close()
     }
     
-    func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+    func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         // tear it all down
         close()
     }

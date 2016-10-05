@@ -1,5 +1,5 @@
 //
-//  SlackKeys.swift
+//  SlackMethodType.swift
 //  botkit
 //
 //  Created by Dave DeLong on 1/24/16.
@@ -8,8 +8,7 @@
 
 import Foundation
 
-internal struct SlackResponseKeys {
-    
-    static let type = "type"
-    
+public protocol SlackMethodType {
+    var method: String { get }
+    func requestBody() -> Dictionary<String, AnyObject>
 }

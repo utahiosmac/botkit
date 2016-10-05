@@ -14,9 +14,9 @@ internal class WebSocketState: SlackConnectionState {
     private let socket: WebSocket
     
     var onExit: ((old: SlackConnectionState, new: SlackConnectionState) -> Void)?
-    var onEvent: (String -> Void)?
+    var onEvent: ((String) -> Void)?
     
-    init(configuration: SlackConnectionConfiguration, socketURL: NSURL) {
+    init(configuration: SlackConnectionConfiguration, socketURL: URL) {
         self.configuration = configuration
         self.socket = WebSocket(socketURL: socketURL, pingInterval: configuration.pingInterval)
     }

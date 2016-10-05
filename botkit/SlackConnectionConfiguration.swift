@@ -10,9 +10,9 @@ import Foundation
 
 internal struct SlackConnectionConfiguration {
     let token: String
-    let pingInterval: NSTimeInterval
+    let pingInterval: TimeInterval
     
-    init(token: String, pingInterval: NSTimeInterval = 5) {
+    init(token: String, pingInterval: TimeInterval = 5) {
         self.token = token
         self.pingInterval = max(pingInterval, 5)
     }

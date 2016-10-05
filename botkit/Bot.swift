@@ -13,16 +13,22 @@ public class Bot {
     private let ruleController = RuleController()
     
     public init(authorizationToken: String) {
+        let rules = ruleController
         let configuration = SlackConnectionConfiguration(token: authorizationToken)
         connection = SlackConnection(configuration: configuration)
-        connection.onEvent = { [unowned self] in
-            self.receiveEvent($0)
-        }
-    }
-    
-    private func receiveEvent(event: String) {
-        guard let basicEvent = BasicSlackEvent(jsonString: event) else { return }
-        ruleController.processEvent(basicEvent)
+        connection.onEvent = { rules.process(event: $0) }
+        
+        ruleController.on(do: { (e: Channel.Archived) in
+            print("Archived: \(e.channel)")
+        })
+        
+        ruleController.on(do: { (e: Channel.UserLeft) in
+            print("User left: \(e.user)")
+        })
+        
+        ruleController.on(do: { (e: Channel.UserJoined) in
+            print("User joined: \(e.user)")
+        })
     }
     
 }
