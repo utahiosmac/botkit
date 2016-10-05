@@ -35,8 +35,8 @@ internal class RuleController {
         skips.append(rule)
     }
     
-    internal func on<T: EventType>(do: (T) -> Void) {
-        self.on(when: { _ in return .handle }, action: `do`)
+    internal func on<T: EventType>(_ action: (T) -> Void) {
+        self.on(when: { _ in return .handle }, action: action)
     }
     
     internal func on<T: EventType>(when: (T) -> RuleDisposition, action: (T) -> Void) {

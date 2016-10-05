@@ -18,17 +18,17 @@ public class Bot {
         connection = SlackConnection(configuration: configuration)
         connection.onEvent = { rules.process(event: $0) }
         
-        ruleController.on(do: { (e: Channel.Archived) in
+        ruleController.on { (e: Channel.Archived) in
             print("Archived: \(e.channel)")
-        })
+        }
         
-        ruleController.on(do: { (e: Channel.UserLeft) in
+        ruleController.on { (e: Channel.UserLeft) in
             print("User left: \(e.user)")
-        })
+        }
         
-        ruleController.on(do: { (e: Channel.UserJoined) in
+        ruleController.on { (e: Channel.UserJoined) in
             print("User joined: \(e.user)")
-        })
+        }
     }
     
 }

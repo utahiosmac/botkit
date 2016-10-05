@@ -8,13 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		55107A271C5545620034B209 /* SlackMethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55107A261C5545620034B209 /* SlackMethodType.swift */; };
+		551680331DA55D56005832C1 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551680321DA55D56005832C1 /* SocketRocket.framework */; };
 		552F17EE1C5526A5008B9940 /* Channel+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F17ED1C5526A5008B9940 /* Channel+Events.swift */; };
 		552F17F11C552936008B9940 /* RuleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F17F01C552936008B9940 /* RuleController.swift */; };
 		555E0E751C509CE300E6BB92 /* botkit.h in Headers */ = {isa = PBXBuildFile; fileRef = 555E0E741C509CE300E6BB92 /* botkit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		555E0E7C1C509CE300E6BB92 /* botkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555E0E711C509CE300E6BB92 /* botkit.framework */; };
 		555E0E811C509CE300E6BB92 /* botkitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0E801C509CE300E6BB92 /* botkitTests.swift */; };
-		555E0EA71C51E19600E6BB92 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555E0EA01C51E18E00E6BB92 /* SocketRocket.framework */; };
-		555E0EA91C51E1A700E6BB92 /* SocketRocket.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 555E0EA01C51E18E00E6BB92 /* SocketRocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		555E0EBD1C530E0900E6BB92 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0EBC1C530E0900E6BB92 /* WebSocket.swift */; };
 		555E0EC21C531A8100E6BB92 /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0EC11C531A8100E6BB92 /* Bot.swift */; };
 		555E0EC41C531D2E00E6BB92 /* SlackConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0EC31C531D2E00E6BB92 /* SlackConnection.swift */; };
@@ -47,48 +46,6 @@
 			remoteGlobalIDString = 555E0E701C509CE300E6BB92;
 			remoteInfo = botkit;
 		};
-		555E0E9F1C51E18E00E6BB92 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F668C880153E91210044DBAC;
-			remoteInfo = SocketRocketOSX;
-		};
-		555E0EA11C51E18E00E6BB92 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2D4227621BB4358C000C1A6C;
-			remoteInfo = "SocketRocket-iOS";
-		};
-		555E0EA31C51E18E00E6BB92 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F6BDA802145900D200FE3253;
-			remoteInfo = SRWebSocketTests;
-		};
-		555E0EA51C51E18E00E6BB92 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F62417E314D52F3C003CE997;
-			remoteInfo = TestChat;
-		};
-		55F20F3F1DA4653900A598E2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 81D6478D1D2CA78800690609;
-			remoteInfo = "SocketRocket-iOS";
-		};
-		55F20F411DA4653900A598E2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3345DC901C52ACD70083CCB8;
-			remoteInfo = "SocketRocket-tvOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -98,7 +55,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				555E0EA91C51E1A700E6BB92 /* SocketRocket.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		55107A261C5545620034B209 /* SlackMethodType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackMethodType.swift; sourceTree = "<group>"; };
+		551680321DA55D56005832C1 /* SocketRocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketRocket.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HelpBot-gmfqduoposnqybatjjcfyfwvflql/Build/Products/Debug/SocketRocket.framework"; sourceTree = "<group>"; };
 		552F17ED1C5526A5008B9940 /* Channel+Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Channel+Events.swift"; sourceTree = "<group>"; };
 		552F17F01C552936008B9940 /* RuleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleController.swift; sourceTree = "<group>"; };
 		555E0E711C509CE300E6BB92 /* botkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = botkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,7 +72,6 @@
 		555E0E7B1C509CE300E6BB92 /* botkitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = botkitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		555E0E801C509CE300E6BB92 /* botkitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = botkitTests.swift; sourceTree = "<group>"; };
 		555E0E821C509CE300E6BB92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SocketRocket.xcodeproj; path = Submodules/SocketRocket/SocketRocket.xcodeproj; sourceTree = "<group>"; };
 		555E0EBC1C530E0900E6BB92 /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		555E0EC11C531A8100E6BB92 /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
 		555E0EC31C531D2E00E6BB92 /* SlackConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackConnection.swift; sourceTree = "<group>"; };
@@ -145,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				555E0EA71C51E19600E6BB92 /* SocketRocket.framework in Frameworks */,
+				551680331DA55D56005832C1 /* SocketRocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +124,14 @@
 			name = "Slack Methods";
 			sourceTree = "<group>";
 		};
+		551680311DA55D55005832C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				551680321DA55D56005832C1 /* SocketRocket.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		552F17EF1C55292B008B9940 /* Bot Rules */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,10 +144,10 @@
 		555E0E671C509CE300E6BB92 = {
 			isa = PBXGroup;
 			children = (
-				555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */,
 				555E0E731C509CE300E6BB92 /* botkit */,
 				555E0E7F1C509CE300E6BB92 /* botkitTests */,
 				555E0E721C509CE300E6BB92 /* Products */,
+				551680311DA55D55005832C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -219,19 +183,6 @@
 				555E0E821C509CE300E6BB92 /* Info.plist */,
 			);
 			path = botkitTests;
-			sourceTree = "<group>";
-		};
-		555E0E961C51E18E00E6BB92 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				55F20F401DA4653900A598E2 /* SocketRocket.framework */,
-				555E0EA21C51E18E00E6BB92 /* SocketRocket.framework */,
-				555E0EA01C51E18E00E6BB92 /* SocketRocket.framework */,
-				55F20F421DA4653900A598E2 /* SocketRocket.framework */,
-				555E0EA41C51E18E00E6BB92 /* SRWebSocketTests.xctest */,
-				555E0EA61C51E18E00E6BB92 /* TestChat.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		55C962041C542A9F00277A4A /* Slack Connection */ = {
@@ -363,12 +314,6 @@
 			mainGroup = 555E0E671C509CE300E6BB92;
 			productRefGroup = 555E0E721C509CE300E6BB92 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 555E0E961C51E18E00E6BB92 /* Products */;
-					ProjectRef = 555E0E951C51E18E00E6BB92 /* SocketRocket.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				555E0E701C509CE300E6BB92 /* botkit */,
@@ -376,51 +321,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		555E0EA01C51E18E00E6BB92 /* SocketRocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SocketRocket.framework;
-			remoteRef = 555E0E9F1C51E18E00E6BB92 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		555E0EA21C51E18E00E6BB92 /* SocketRocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SocketRocket.framework;
-			remoteRef = 555E0EA11C51E18E00E6BB92 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		555E0EA41C51E18E00E6BB92 /* SRWebSocketTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SRWebSocketTests.xctest;
-			remoteRef = 555E0EA31C51E18E00E6BB92 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		555E0EA61C51E18E00E6BB92 /* TestChat.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = TestChat.app;
-			remoteRef = 555E0EA51C51E18E00E6BB92 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55F20F401DA4653900A598E2 /* SocketRocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SocketRocket.framework;
-			remoteRef = 55F20F3F1DA4653900A598E2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55F20F421DA4653900A598E2 /* SocketRocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SocketRocket.framework;
-			remoteRef = 55F20F411DA4653900A598E2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		555E0E6F1C509CE300E6BB92 /* Resources */ = {
