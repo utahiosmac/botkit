@@ -13,7 +13,7 @@ internal class WebSocketState: SlackConnectionState {
     private let configuration: SlackConnectionConfiguration
     private let socket: WebSocket
     
-    var onExit: ((old: SlackConnectionState, new: SlackConnectionState) -> Void)?
+    var onExit: ((_ old: SlackConnectionState, _ new: SlackConnectionState) -> Void)?
     var onEvent: ((String) -> Void)?
     
     init(configuration: SlackConnectionConfiguration, socketURL: URL) {
@@ -31,7 +31,7 @@ internal class WebSocketState: SlackConnectionState {
         let configuration = self.configuration
         socket.onClose = { [unowned self] error in
             NSLog("Closing socket (error: %@)", error ?? "none")
-            onExit(old: self, new: WaitingState(configuration: configuration))
+            onExit(self, WaitingState(configuration: configuration))
         }
         
         socket.open()

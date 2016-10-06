@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		55107A271C5545620034B209 /* SlackMethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55107A261C5545620034B209 /* SlackMethodType.swift */; };
-		551680331DA55D56005832C1 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551680321DA55D56005832C1 /* SocketRocket.framework */; };
+		551680391DA5A9F4005832C1 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551680381DA5A9F4005832C1 /* Team.swift */; };
+		5516803E1DA5F281005832C1 /* Jobs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5516803D1DA5F281005832C1 /* Jobs.framework */; };
 		552F17EE1C5526A5008B9940 /* Channel+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F17ED1C5526A5008B9940 /* Channel+Events.swift */; };
 		552F17F11C552936008B9940 /* RuleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F17F01C552936008B9940 /* RuleController.swift */; };
 		555E0E751C509CE300E6BB92 /* botkit.h in Headers */ = {isa = PBXBuildFile; fileRef = 555E0E741C509CE300E6BB92 /* botkit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -17,6 +18,7 @@
 		555E0EBD1C530E0900E6BB92 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0EBC1C530E0900E6BB92 /* WebSocket.swift */; };
 		555E0EC21C531A8100E6BB92 /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0EC11C531A8100E6BB92 /* Bot.swift */; };
 		555E0EC41C531D2E00E6BB92 /* SlackConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0EC31C531D2E00E6BB92 /* SlackConnection.swift */; };
+		559E24631DA6B89D00E75FE7 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551680321DA55D56005832C1 /* SocketRocket.framework */; };
 		55C9620B1C542AAC00277A4A /* SlackConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620A1C542AAC00277A4A /* SlackConnectionState.swift */; };
 		55C9620D1C542ABC00277A4A /* WaitingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620C1C542ABC00277A4A /* WaitingState.swift */; };
 		55C9620F1C542AD000277A4A /* RetrieveSocketURLState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620E1C542AD000277A4A /* RetrieveSocketURLState.swift */; };
@@ -64,6 +66,8 @@
 /* Begin PBXFileReference section */
 		55107A261C5545620034B209 /* SlackMethodType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackMethodType.swift; sourceTree = "<group>"; };
 		551680321DA55D56005832C1 /* SocketRocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketRocket.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HelpBot-gmfqduoposnqybatjjcfyfwvflql/Build/Products/Debug/SocketRocket.framework"; sourceTree = "<group>"; };
+		551680381DA5A9F4005832C1 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		5516803D1DA5F281005832C1 /* Jobs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jobs.framework; path = "Submodules/Jobs/build/Debug-iphoneos/Jobs.framework"; sourceTree = "<group>"; };
 		552F17ED1C5526A5008B9940 /* Channel+Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Channel+Events.swift"; sourceTree = "<group>"; };
 		552F17F01C552936008B9940 /* RuleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleController.swift; sourceTree = "<group>"; };
 		555E0E711C509CE300E6BB92 /* botkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = botkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,7 +105,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				551680331DA55D56005832C1 /* SocketRocket.framework in Frameworks */,
+				559E24631DA6B89D00E75FE7 /* SocketRocket.framework in Frameworks */,
+				5516803E1DA5F281005832C1 /* Jobs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +124,6 @@
 		55107A281C5545670034B209 /* Slack Methods */ = {
 			isa = PBXGroup;
 			children = (
-				55107A261C5545620034B209 /* SlackMethodType.swift */,
 			);
 			name = "Slack Methods";
 			sourceTree = "<group>";
@@ -127,9 +131,18 @@
 		551680311DA55D55005832C1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5516803D1DA5F281005832C1 /* Jobs.framework */,
 				551680321DA55D56005832C1 /* SocketRocket.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5516803C1DA5AF8C005832C1 /* Slack Actions */ = {
+			isa = PBXGroup;
+			children = (
+				55107A261C5545620034B209 /* SlackMethodType.swift */,
+			);
+			name = "Slack Actions";
 			sourceTree = "<group>";
 		};
 		552F17EF1C55292B008B9940 /* Bot Rules */ = {
@@ -168,6 +181,7 @@
 				55C962041C542A9F00277A4A /* Slack Connection */,
 				55F20F451DA46AC900A598E2 /* Slack Model */,
 				55C962141C5442F200277A4A /* Slack Events */,
+				5516803C1DA5AF8C005832C1 /* Slack Actions */,
 				552F17EF1C55292B008B9940 /* Bot Rules */,
 				55107A281C5545670034B209 /* Slack Methods */,
 				55F20F4E1DA4948000A598E2 /* Helpers */,
@@ -219,6 +233,7 @@
 				55F20F481DA46CD600A598E2 /* User.swift */,
 				55F20F5B1DA548CF00A598E2 /* Emoji.swift */,
 				55F20F611DA551A000A598E2 /* Message.swift */,
+				551680381DA5A9F4005832C1 /* Team.swift */,
 			);
 			name = "Slack Model";
 			sourceTree = "<group>";
@@ -346,6 +361,7 @@
 			files = (
 				552F17EE1C5526A5008B9940 /* Channel+Events.swift in Sources */,
 				55F20F501DA4954E00A598E2 /* Dictionary.swift in Sources */,
+				551680391DA5A9F4005832C1 /* Team.swift in Sources */,
 				555E0EC21C531A8100E6BB92 /* Bot.swift in Sources */,
 				55F20F5E1DA54F2400A598E2 /* User+Events.swift in Sources */,
 				55F20F581DA4A14200A598E2 /* JSONError.swift in Sources */,

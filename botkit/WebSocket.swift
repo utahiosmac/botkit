@@ -10,15 +10,15 @@ import Foundation
 import SocketRocket
 
 internal class WebSocket: NSObject {
-    private var socket: SRWebSocket
-    private var socketError: NSError?
-    private var receivedLastPong = true
+    fileprivate var socket: SRWebSocket
+    fileprivate var socketError: NSError?
+    fileprivate var receivedLastPong = true
     
     internal var onEvent: ((String) -> Void)?
     internal var onClose: ((NSError?) -> Void)?
     
-    private let timerSource: DispatchSourceTimer
-    private let pingInterval: TimeInterval
+    fileprivate let timerSource: DispatchSourceTimer
+    fileprivate let pingInterval: TimeInterval
     
     init(socketURL: URL, pingInterval: TimeInterval) {
         self.socket = SRWebSocket(url: socketURL)
@@ -33,7 +33,7 @@ internal class WebSocket: NSObject {
         socket.open()
     }
     
-    private func close() {
+    fileprivate func close() {
         socket.delegate = nil
         timerSource.cancel()
         onClose?(socketError)

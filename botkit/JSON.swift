@@ -67,7 +67,7 @@ public extension JSON {
         }
     }
     
-    init(_ value: AnyObject) {
+    init(_ value: Any) {
         
         switch value {
         case let str as String:
@@ -182,7 +182,7 @@ extension JSON {
         return try JSONSerialization.data(withJSONObject: o, options: options)
     }
     
-    func jsonObject() throws -> AnyObject {
+    func jsonObject() throws -> Any {
         switch self {
             case .unknown: throw JSONError(message: "Cannot encode an unknown JSON value")
             case .null: return NSNull()

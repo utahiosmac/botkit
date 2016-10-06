@@ -9,6 +9,6 @@
 import Foundation
 
 internal protocol SlackConnectionState: class {
-    var onExit: ((old: SlackConnectionState, new: SlackConnectionState) -> Void)? { get set }
+    var onExit: ((_ old: SlackConnectionState, _ new: SlackConnectionState) -> Void)? { get set }
     func enter()
 }

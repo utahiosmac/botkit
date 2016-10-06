@@ -10,7 +10,7 @@ import Foundation
 
 internal class RetrieveSocketURLState: SlackConnectionState {
     
-    var onExit: ((old: SlackConnectionState, new: SlackConnectionState) -> Void)?
+    var onExit: ((_ old: SlackConnectionState, _ new: SlackConnectionState) -> Void)?
     private let configuration: SlackConnectionConfiguration
     
     init(configuration: SlackConnectionConfiguration) {
@@ -29,7 +29,7 @@ internal class RetrieveSocketURLState: SlackConnectionState {
         task.resume()
     }
     
-    private func handleResponse(_ data: Data?, response: URLResponse?, error: NSError?) {
+    private func handleResponse(_ data: Data?, response: URLResponse?, error: Error?) {
         // must get the right info from the data
         // otherwise we log stuff and go back to Waiting
         guard let onExit = onExit else {
@@ -37,14 +37,14 @@ internal class RetrieveSocketURLState: SlackConnectionState {
         }
         
         let configuration = self.configuration
-        let errorHandler = { onExit(old: self, new: WaitingState(configuration: configuration)) }
+        let errorHandler = { onExit(self, WaitingState(configuration: configuration)) }
         
         guard let data = data else {
             NSLog("No response data from Slack")
             if let response = response {
-                NSLog("Slack response: %@", response)
+                print("Slack response: \(response)")
             } else if let error = error {
-                NSLog("Connection error: %@", error)
+                print("Connection error: \(error)")
             }
             errorHandler()
             return
@@ -75,6 +75,6 @@ internal class RetrieveSocketURLState: SlackConnectionState {
         }
         
         let nextState = WebSocketState(configuration: configuration, socketURL: socketURL)
-        onExit(old: self, new: nextState)
+        onExit(self, nextState)
     }
 }

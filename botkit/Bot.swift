@@ -15,31 +15,15 @@ public enum RuleDisposition {
 }
 
 public final class Bot {
+    private let configuration: SlackConnectionConfiguration
     private let connection: SlackConnection
     private let ruleController = RuleController()
     
     public init(authorizationToken: String) {
         let rules = ruleController
-        let configuration = SlackConnectionConfiguration(token: authorizationToken)
+        configuration = SlackConnectionConfiguration(token: authorizationToken)
         connection = SlackConnection(configuration: configuration)
         connection.onEvent = { rules.process(event: $0) }
-        
-        on { (e: Channel.Archived) in
-            print("Archived: \(e.channel)")
-        }
-        
-        on { (e: Channel.UserLeft) in
-            print("User left \(e.channel): \(e.user)")
-        }
-        
-        on { (e: Channel.UserJoined) in
-            print("User joined \(e.channel): \(e.user)")
-        }
-        
-        on { (e: Channel.MessagePosted) in
-            let s = "In \(e.message.channel), \(e.message.user) said: \(e.message.text)"
-            print(s)
-        }
     }
     
     
@@ -50,16 +34,21 @@ public final class Bot {
         ruleController.add(skipRule: rule)
     }
     
-    public func on<T: EventType>(_ action: (T) -> Void) {
+    public func on<T: EventType>(_ action: @escaping (T, Bot) -> Void) {
         self.on(when: { _ in return .handle }, action: action)
     }
     
-    public func on<T: EventType>(when: (T) -> RuleDisposition, action: (T) -> Void) {
-        let rule = Rule<T>(when: when, action: { e, c in
-            action(e)
-            c()
+    public func on<T: EventType>(when: @escaping (T) -> RuleDisposition, action: @escaping (T, Bot) -> Void) {
+        let rule = Rule<T>(when: when, action: { [weak self] e, c in
+            defer { c() }
+            guard let bot = self else { return }
+            action(e, bot)
         })
         ruleController.add(rule: rule)
+    }
+    
+    public func execute(action: SlackMethodType) {
+        
     }
     
 }
