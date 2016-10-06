@@ -10,13 +10,13 @@ import Foundation
 
 internal class WebSocketState: SlackConnectionState {
     
-    private let configuration: SlackConnectionConfiguration
+    private let configuration: Bot.Configuration
     private let socket: WebSocket
     
     var onExit: ((_ old: SlackConnectionState, _ new: SlackConnectionState) -> Void)?
     var onEvent: ((String) -> Void)?
     
-    init(configuration: SlackConnectionConfiguration, socketURL: URL) {
+    init(configuration: Bot.Configuration, socketURL: URL) {
         self.configuration = configuration
         self.socket = WebSocket(socketURL: socketURL, pingInterval: configuration.pingInterval)
     }

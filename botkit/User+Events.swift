@@ -10,7 +10,7 @@ import Foundation
 
 public extension User {
     
-    public struct Joined: StandardEventType {
+    public struct Joined: EventType {
         public let user: User
         
         public init(json: JSON) throws {

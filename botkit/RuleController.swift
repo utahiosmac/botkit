@@ -30,13 +30,20 @@ internal class RuleController {
     }
     
     internal func process(event: String) {
-        let action = send(event: event, to: skips, waitUntilDone: true)
+        guard let data = event.data(using: .utf8) else { return }
+        guard let json = try? JSON(data: data) else { return }
+        guard json.isUnknown == false else {
+            print("Unable to create JSON from \(event)")
+            return
+        }
+        
+        let action = send(event: json, to: skips, waitUntilDone: true)
         if action == .continue {
-            _ = send(event: event, to: rules, waitUntilDone: false)
+            _ = send(event: json, to: rules, waitUntilDone: false)
         }
     }
     
-    private func send(event: String, to rules: Array<RuleType>, waitUntilDone: Bool) -> RuleAction {
+    private func send(event: JSON, to rules: Array<RuleType>, waitUntilDone: Bool) -> RuleAction {
         for rule in rules {
             let ruleAction = send(event: event, to: rule, waitUntilDone: waitUntilDone)
             if ruleAction == .abort { return .abort }
@@ -44,7 +51,7 @@ internal class RuleController {
         return .continue
     }
     
-    private func send(event: String, to rule: RuleType, waitUntilDone: Bool) -> RuleAction {
+    private func send(event: JSON, to rule: RuleType, waitUntilDone: Bool) -> RuleAction {
         let notifyOfCompletion: (Void) -> Void
         let waitUntilCompletion: (Void) -> Void
         

@@ -59,7 +59,7 @@ extension String: JSONInitializable {
         if let s = json.string {
             self = s
         } else {
-            throw JSONError(message: "Unable to create URL from JSON")
+            throw JSONError(message: "Unable to create String from JSON")
         }
     }
 }

@@ -11,10 +11,10 @@ import Foundation
 internal class WaitingState: SlackConnectionState {
     
     var onExit: ((_ old: SlackConnectionState, _ new: SlackConnectionState) -> Void)?
-    private let configuration: SlackConnectionConfiguration
+    private let configuration: Bot.Configuration
     var delay: TimeInterval = 0
     
-    init(configuration: SlackConnectionConfiguration) {
+    init(configuration: Bot.Configuration) {
         self.configuration = configuration
     }
     

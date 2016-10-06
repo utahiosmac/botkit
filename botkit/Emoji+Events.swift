@@ -10,7 +10,7 @@ import Foundation
 
 public extension Emoji {
 
-    public struct Added: StandardEventType {
+    public struct Added: EventType {
         public let emoji: Emoji
         
         public init(json: JSON) throws {
@@ -21,7 +21,7 @@ public extension Emoji {
         }
     }
 
-    public struct Removed: StandardEventType {
+    public struct Removed: EventType {
         public let names: Array<String>
         
         public init(json: JSON) throws {

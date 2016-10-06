@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Startup: StandardEventType {
+public struct Startup: EventType {
     
     public init(json: JSON) throws {
         try json.match(type: "hello")

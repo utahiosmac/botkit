@@ -10,7 +10,7 @@ import Foundation
 
 public extension Channel {
 
-    public struct Created: StandardEventType {
+    public struct Created: EventType {
         public let channel: Channel
         public let user: User
         
@@ -21,7 +21,7 @@ public extension Channel {
         }
     }
 
-    public struct Deleted: StandardEventType {
+    public struct Deleted: EventType {
         public let channel: Channel
         
         public init(json: JSON) throws {
@@ -30,7 +30,7 @@ public extension Channel {
         }
     }
 
-    public struct Renamed: StandardEventType {
+    public struct Renamed: EventType {
         public let channel: Channel
         
         public init(json: JSON) throws {
@@ -39,7 +39,7 @@ public extension Channel {
         }
     }
 
-    public struct Archived: StandardEventType {
+    public struct Archived: EventType {
         public let channel: Channel
         public let user: User
         
@@ -50,7 +50,7 @@ public extension Channel {
         }
     }
 
-    public struct Unarchived: StandardEventType {
+    public struct Unarchived: EventType {
         public let channel: Channel
         public let user: User
         
@@ -61,7 +61,7 @@ public extension Channel {
         }
     }
     
-    public struct PurposeChanged: StandardEventType {
+    public struct PurposeChanged: EventType {
         public let channel: Channel
         public let user: User
         public let purpose: String
@@ -76,7 +76,7 @@ public extension Channel {
         }
     }
     
-    public struct TopicChanged: StandardEventType {
+    public struct TopicChanged: EventType {
         public let channel: Channel
         public let user: User
         public let topic: String
@@ -91,7 +91,7 @@ public extension Channel {
         }
     }
     
-    public struct UserJoined: StandardEventType {
+    public struct UserJoined: EventType {
         public let channel: Channel
         public let user: User
         
@@ -103,7 +103,7 @@ public extension Channel {
         }
     }
     
-    public struct UserLeft: StandardEventType {
+    public struct UserLeft: EventType {
         public let channel: Channel
         public let user: User
         
@@ -115,7 +115,7 @@ public extension Channel {
         }
     }
     
-    public struct MessagePosted: StandardEventType {
+    public struct MessagePosted: EventType {
         public let message: Message
         
         public init(json: JSON) throws {

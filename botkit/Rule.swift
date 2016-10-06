@@ -10,7 +10,7 @@ import Foundation
 
 internal protocol RuleType {
     
-    func handle(event: String, completion: () -> Void) -> RuleDisposition
+    func handle(event: JSON, completion: () -> Void) -> RuleDisposition
     
 }
 
@@ -19,8 +19,8 @@ internal struct Rule<T: EventType>: RuleType {
     let when: (T) -> RuleDisposition
     let action: (T, () -> Void) -> Void
     
-    func handle(event: String, completion: () -> Void) -> RuleDisposition {
-        guard let builtEvent = T.init(event: event) else {
+    func handle(event: JSON, completion: () -> Void) -> RuleDisposition {
+        guard let builtEvent = try? T.init(json: event) else {
             completion()
             return .skip
         }

@@ -11,14 +11,14 @@ import Foundation
 internal class RetrieveSocketURLState: SlackConnectionState {
     
     var onExit: ((_ old: SlackConnectionState, _ new: SlackConnectionState) -> Void)?
-    private let configuration: SlackConnectionConfiguration
+    private let configuration: Bot.Configuration
     
-    init(configuration: SlackConnectionConfiguration) {
+    init(configuration: Bot.Configuration) {
         self.configuration = configuration
     }
     
     func enter() {
-        guard let url = URL(string: "https://slack.com/api/rtm.start?token=\(configuration.token)") else {
+        guard let url = URL(string: "https://slack.com/api/rtm.start?token=\(configuration.authToken)") else {
             fatalError("Unable to construct Slack connection URL")
         }
         

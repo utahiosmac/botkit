@@ -12,11 +12,11 @@ internal class SlackConnection {
     
     private var state: SlackConnectionState
     private var delay: TimeInterval = 0
-    private let configuration: SlackConnectionConfiguration
+    private let configuration: Bot.Configuration
     
     var onEvent: ((String) -> Void)?
     
-    internal init(configuration: SlackConnectionConfiguration) {
+    internal init(configuration: Bot.Configuration) {
         self.configuration = configuration
         
         self.state = WaitingState(configuration: configuration)
