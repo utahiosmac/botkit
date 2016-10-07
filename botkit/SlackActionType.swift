@@ -8,18 +8,35 @@
 
 import Foundation
 
-public protocol SlackResponseType: JSONInitializable {
-    
-}
-
 public protocol SlackActionType {
-    associatedtype ResponseType: SlackResponseType
-    
+    associatedtype ResponseType
     
     var method: String { get }
-    func requestBody() -> Dictionary<String, Any>
+    
+    var httpMethod: String { get }
+    var parameters: Array<URLQueryItem> { get }
+    var httpBody: JSON { get }
+    var requiresAdminToken: Bool { get }
+    
+    var responseKey: String? { get }
+    func constructResponse(json: JSON) throws -> ResponseType
 }
 
 extension SlackActionType {
-    public func requestBody() -> Dictionary<String, Any> { return [:] }
+    public var httpMethod: String { return "GET" }
+    public var parameters: Array<URLQueryItem> { return [] }
+    public var httpBody: JSON { return .unknown }
+    public var requiresAdminToken: Bool { return false }
+    
+    public var responseKey: String? { return nil }
+}
+
+extension SlackActionType where ResponseType: JSONInitializable {
+    public func constructResponse(json: JSON) throws -> ResponseType {
+        if let key = responseKey {
+            return try json.value(for: key)
+        } else {
+            return try ResponseType.init(json: json)
+        }
+    }
 }

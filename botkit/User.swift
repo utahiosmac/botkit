@@ -21,10 +21,12 @@ public struct User: Hashable, CustomStringConvertible, JSONInitializable {
         if let s = json.string {
             self.identifier = Identifier(s)
             self.name = nil
+        } else if json.isObject {
+            self.identifier = try json.value(for: "id")
+            self.name = try? json.value(for: "name")
         } else {
             throw JSONError(message: "Unable to create User from JSON")
         }
     }
-    
 }
 

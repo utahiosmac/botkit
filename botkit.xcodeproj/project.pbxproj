@@ -22,6 +22,10 @@
 		555E0EC41C531D2E00E6BB92 /* SlackConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E0EC31C531D2E00E6BB92 /* SlackConnection.swift */; };
 		559E24631DA6B89D00E75FE7 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551680321DA55D56005832C1 /* SocketRocket.framework */; };
 		559E24651DA6E7CA00E75FE7 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E24641DA6E7CA00E75FE7 /* Result.swift */; };
+		559E24671DA70C3700E75FE7 /* Team+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E24661DA70C3700E75FE7 /* Team+Actions.swift */; };
+		559E24691DA8020800E75FE7 /* Channel+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E24681DA8020800E75FE7 /* Channel+Actions.swift */; };
+		559E246B1DA8128200E75FE7 /* User+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E246A1DA8128200E75FE7 /* User+Actions.swift */; };
+		559E246D1DA8235D00E75FE7 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E246C1DA8235D00E75FE7 /* Collection.swift */; };
 		55C9620B1C542AAC00277A4A /* SlackConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620A1C542AAC00277A4A /* SlackConnectionState.swift */; };
 		55C9620D1C542ABC00277A4A /* WaitingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620C1C542ABC00277A4A /* WaitingState.swift */; };
 		55C9620F1C542AD000277A4A /* RetrieveSocketURLState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9620E1C542AD000277A4A /* RetrieveSocketURLState.swift */; };
@@ -84,6 +88,10 @@
 		555E0EC11C531A8100E6BB92 /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
 		555E0EC31C531D2E00E6BB92 /* SlackConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackConnection.swift; sourceTree = "<group>"; };
 		559E24641DA6E7CA00E75FE7 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		559E24661DA70C3700E75FE7 /* Team+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Team+Actions.swift"; sourceTree = "<group>"; };
+		559E24681DA8020800E75FE7 /* Channel+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Channel+Actions.swift"; sourceTree = "<group>"; };
+		559E246A1DA8128200E75FE7 /* User+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+Actions.swift"; sourceTree = "<group>"; };
+		559E246C1DA8235D00E75FE7 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		55C9620A1C542AAC00277A4A /* SlackConnectionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackConnectionState.swift; sourceTree = "<group>"; };
 		55C9620C1C542ABC00277A4A /* WaitingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingState.swift; sourceTree = "<group>"; };
 		55C9620E1C542AD000277A4A /* RetrieveSocketURLState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrieveSocketURLState.swift; sourceTree = "<group>"; };
@@ -146,6 +154,9 @@
 			children = (
 				55107A261C5545620034B209 /* SlackActionType.swift */,
 				5516803A1DA5AF89005832C1 /* Emoji+Actions.swift */,
+				559E24661DA70C3700E75FE7 /* Team+Actions.swift */,
+				559E24681DA8020800E75FE7 /* Channel+Actions.swift */,
+				559E246A1DA8128200E75FE7 /* User+Actions.swift */,
 			);
 			name = "Slack Actions";
 			sourceTree = "<group>";
@@ -249,6 +260,7 @@
 				55F20F4C1DA4947D00A598E2 /* JSON.swift */,
 				55F20F571DA4A14200A598E2 /* JSONError.swift */,
 				55F20F551DA49C2F00A598E2 /* JSONInitializable.swift */,
+				559E246C1DA8235D00E75FE7 /* Collection.swift */,
 				55F20F4F1DA4954E00A598E2 /* Dictionary.swift */,
 				559E24641DA6E7CA00E75FE7 /* Result.swift */,
 			);
@@ -368,10 +380,13 @@
 				552F17EE1C5526A5008B9940 /* Channel+Events.swift in Sources */,
 				55F20F501DA4954E00A598E2 /* Dictionary.swift in Sources */,
 				551680391DA5A9F4005832C1 /* Team.swift in Sources */,
+				559E24671DA70C3700E75FE7 /* Team+Actions.swift in Sources */,
 				555E0EC21C531A8100E6BB92 /* Bot.swift in Sources */,
+				559E246D1DA8235D00E75FE7 /* Collection.swift in Sources */,
 				55F20F5E1DA54F2400A598E2 /* User+Events.swift in Sources */,
 				55F20F581DA4A14200A598E2 /* JSONError.swift in Sources */,
 				55F20F4B1DA472A500A598E2 /* Rule.swift in Sources */,
+				559E246B1DA8128200E75FE7 /* User+Actions.swift in Sources */,
 				55F20F441DA46AC600A598E2 /* Channel.swift in Sources */,
 				55F20F621DA551A000A598E2 /* Message.swift in Sources */,
 				55F20F5A1DA4B76800A598E2 /* Emoji+Events.swift in Sources */,
@@ -387,6 +402,7 @@
 				551680401DA6D06E005832C1 /* BotConfiguration.swift in Sources */,
 				55107A271C5545620034B209 /* SlackActionType.swift in Sources */,
 				552F17F11C552936008B9940 /* RuleController.swift in Sources */,
+				559E24691DA8020800E75FE7 /* Channel+Actions.swift in Sources */,
 				55F20F5C1DA548CF00A598E2 /* Emoji.swift in Sources */,
 				55F20F601DA5515500A598E2 /* Startup.swift in Sources */,
 				55C962111C542AEA00277A4A /* WebSocketState.swift in Sources */,

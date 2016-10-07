@@ -31,4 +31,9 @@ public struct Emoji: JSONInitializable {
         self.name = try json.value(for: "name")
         self.value = try json.value(for: "value")
     }
+    
+    public init(name: String, value: JSON) throws {
+        self.name = name
+        self.value = try Value(json: value)
+    }
 }

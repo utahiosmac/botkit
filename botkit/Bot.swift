@@ -19,6 +19,10 @@ public final class Bot {
     private let connection: SlackConnection
     private let ruleController = RuleController()
     
+    public var me: User?
+    public var team: Team?
+    public var usersByID: Dictionary<Identifier<User>, User>?
+    
     public init(configuration: Configuration) {
         let rules = ruleController
         self.configuration = configuration
@@ -48,16 +52,45 @@ public final class Bot {
     }
     
     public func execute<A: SlackActionType>(action: A, asAdmin: Bool = false, completion: @escaping (Result<A.ResponseType>) -> Void) {
-        let token = asAdmin ? configuration.adminToken : configuration.authToken
+        var token = configuration.authToken
+        if asAdmin == true || action.requiresAdminToken {
+            guard let adminToken = configuration.adminToken else {
+                let error = NSError(domain: "BotKit", code: 1, userInfo: [NSLocalizedDescriptionKey: "Action requires admin token, but no admin token was provided"])
+                completion(.error(error))
+                return
+            }
+            token = adminToken
+        }
         
         var c = URLComponents()
         c.scheme = "https"
         c.host = "slack.com"
         c.path = "/api/\(action.method)"
-        c.queryItems = [URLQueryItem(name: "token", value: token)]
+        
+        // don't allow an action to specify their own token
+        let actionParameters = action.parameters.filter { $0.name != "token" }
+        let allParameters = [URLQueryItem(name: "token", value: token)] + actionParameters
+        
+        if action.httpMethod == "GET" {
+            c.queryItems = allParameters
+        }
         
         guard let url = c.url else {
             fatalError("Unable to construct URL for action \(action)")
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = action.httpMethod
+        
+        if request.httpMethod != "GET" {
+            let bodyParameters = allParameters.map { q -> String in
+                let k = q.name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                let v = q.value?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                return k + "=" + v
+            }
+            let body = bodyParameters.joined(separator: "&")
+            request.httpBody = body.data(using: .utf8)
+            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -98,7 +131,7 @@ public final class Bot {
             }
             
             do {
-                let response = try A.ResponseType.init(json: json)
+                let response = try action.constructResponse(json: json)
                 completion(.value(response))
             } catch let e {
                 completion(.error(e))

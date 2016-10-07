@@ -11,25 +11,15 @@ import Foundation
 public extension Emoji {
  
     public struct List: SlackActionType {
-        public typealias ResponseType = Response
+        public typealias ResponseType = Array<Emoji>
         
         public let method = "emoji.list"
         
         public init() { }
         
-        public struct Response: SlackResponseType {
-            public let emoji: Array<Emoji>
-            
-            public init(json: JSON) throws {
-                let definitions = json["emoji"].object
-                let built = (try definitions?.map { (k, v) -> (String, Emoji) in
-                    let j = JSON.object(["name": .string(k), "value": v])
-                    let e = try Emoji(json: j)
-                    return (k, e)
-                }) ?? [:]
-                
-                emoji = Array(built.values)
-            }
+        public func constructResponse(json: JSON) throws -> ResponseType {
+            let definitions = json["emoji"].object ?? [:]
+            return try Array(definitions).map { try Emoji(name: $0.0, value: $0.1) }
         }
         
     }
