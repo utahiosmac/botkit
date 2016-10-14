@@ -115,12 +115,30 @@ public extension Channel {
         }
     }
     
+    public struct Joined: EventType {
+        public let channel: Channel
+        
+        public init(json: JSON) throws {
+            try json.match(type: "channel_joined")
+            channel = try json.value(for: "channel")
+        }
+    }
+    
+    public struct Left: EventType {
+        public let channel: Channel
+        
+        public init(json: JSON) throws {
+            try json.match(type: "channel_left")
+            channel = try json.value(for: "channel")
+        }
+    }
+    
     public struct MessagePosted: EventType {
         public let message: Message
         
         public init(json: JSON) throws {
             try json.match(type: "message")
-            guard json["subtype"].isUnknown else { throw JSONError(message: "Event type is a specialized Message") }
+            guard json["subtype"].isUnknown else { throw JSONError("Event type is a specialized Message") }
             
             message = try Message(json: json)
         }

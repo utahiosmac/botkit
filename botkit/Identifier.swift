@@ -21,7 +21,7 @@ public struct Identifier<T>: Hashable, ExpressibleByStringLiteral, CustomStringC
     }
     
     public init(json: JSON) throws {
-        guard let s = json.string else { throw JSONError(message: "Value is not a string") }
+        guard let s = json.string else { throw JSONError("Value is not a string") }
         self.value = s
     }
     

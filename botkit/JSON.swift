@@ -172,6 +172,11 @@ public extension JSON {
 
 extension JSON {
     
+    public init(contentsOf url: URL, options: Data.ReadingOptions = []) throws {
+        let data = try Data(contentsOf: url, options: options)
+        try self.init(data: data)
+    }
+    
     public init(data: Data) throws {
         let object = try JSONSerialization.jsonObject(with: data, options: [.allowFragments])
         self.init(object)
@@ -184,7 +189,7 @@ extension JSON {
     
     func jsonObject() throws -> Any {
         switch self {
-            case .unknown: throw JSONError(message: "Cannot encode an unknown JSON value")
+            case .unknown: throw JSONError("Cannot encode an unknown JSON value")
             case .null: return NSNull()
             case .string(let s): return s
             case .number(let n): return n

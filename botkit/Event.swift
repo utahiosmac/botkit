@@ -16,13 +16,13 @@ public extension JSON {
     
     func match(type: String) throws {
         if self["type"].string != type {
-            throw JSONError(message: "Event type is not \(type)")
+            throw JSONError("Event type is not \(type)")
         }
     }
     
     func match(subtype: String) throws {
         if self["subtype"].string != subtype {
-            throw JSONError(message: "Event subtype is not \(subtype)")
+            throw JSONError("Event subtype is not \(subtype)")
         }
     }
 }

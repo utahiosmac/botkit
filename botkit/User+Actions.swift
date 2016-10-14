@@ -29,4 +29,40 @@ public extension User {
         }
     }
     
+    public struct Info: SlackActionType {
+        public typealias ResponseType = User
+        public let method = "users.info"
+        public let responseKey: String? = "user"
+        public let parameters: Array<URLQueryItem>
+        
+        public init(user: String) {
+            parameters = [URLQueryItem(name: "user", value: user)]
+        }
+    }
+    
+    public struct StartChat: SlackActionType {
+        public typealias ResponseType = Channel
+        public let method = "im.open"
+        public let responseKey: String? = "channel"
+        public let parameters: Array<URLQueryItem>
+        
+        public init(user: User) {
+            parameters = [
+                URLQueryItem(name: "user", value: user.identifier.value),
+                URLQueryItem(name: "return_im", value: "false")
+            ]
+        }
+        
+        public init(user: Identifier<User>) {
+            parameters = [
+                URLQueryItem(name: "user", value: user.value),
+                URLQueryItem(name: "return_im", value: "false")
+            ]
+        }
+    }
+    
+    public func startChat() -> StartChat {
+        return StartChat(user: self)
+    }
+    
 }

@@ -19,4 +19,14 @@ public extension User {
         }
     }
     
+    public struct Changed: EventType {
+        public let user: User
+        
+        public init(json: JSON) throws {
+            try json.match(type: "user_change")
+            user = try json.value(for: "user")
+        }
+        
+    }
+    
 }

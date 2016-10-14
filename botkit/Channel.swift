@@ -30,7 +30,7 @@ extension Channel: JSONInitializable {
             self.identifier = try json.value(for: "id")
             self.name = d["name"]?.string
         } else {
-            throw JSONError(message: "Unable to create Channel from JSON")
+            throw JSONError("Unable to create Channel from JSON")
         }
     }
     

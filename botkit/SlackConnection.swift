@@ -14,10 +14,11 @@ internal class SlackConnection {
     private var delay: TimeInterval = 0
     private let configuration: Bot.Configuration
     
-    var onEvent: ((String) -> Void)?
+    private let onEvent: (String) -> Void
     
-    internal init(configuration: Bot.Configuration) {
+    internal init(configuration: Bot.Configuration, eventHandler: @escaping (String) -> Void) {
         self.configuration = configuration
+        self.onEvent = eventHandler
         
         self.state = WaitingState(configuration: configuration)
         moveToState(self.state)

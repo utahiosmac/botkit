@@ -15,19 +15,62 @@ public enum RuleDisposition {
 }
 
 public final class Bot {
-    private let configuration: Configuration
-    private let connection: SlackConnection
+    public let configuration: Configuration
+    private var connection: SlackConnection?
     private let ruleController = RuleController()
+    private let actionController: ActionController
+    
+    internal let userCache: UserCache
+    internal let channelCache: ChannelCache
+    
+    private let setupGroup = DispatchGroup()
     
     public var me: User?
     public var team: Team?
-    public var usersByID: Dictionary<Identifier<User>, User>?
     
     public init(configuration: Configuration) {
-        let rules = ruleController
+        let g = setupGroup
+        
         self.configuration = configuration
-        connection = SlackConnection(configuration: configuration)
-        connection.onEvent = { rules.process(event: $0) }
+        self.actionController = ActionController(configuration: configuration)
+        
+        g.enter()
+        let userCache = UserCache(configuration: configuration, actionController: actionController, setupComplete: { g.leave() })
+        
+        g.enter()
+        let channelCache = ChannelCache(configuration: configuration, actionController: actionController, setupComplete: { g.leave() })
+        
+        self.userCache = userCache
+        self.channelCache = channelCache
+        
+        // rules to keep the caches up-to-date
+        
+        // user cache
+        self.on { (e: User.Changed, b: Bot) in
+            userCache.userChanged(user: e.user)
+        }
+        
+        self.on { (e: User.Joined, b: Bot) in
+            userCache.userJoined(user: e.user)
+        }
+        
+        // channel cache
+        self.on { (e: Channel.Created, b: Bot) in
+            channelCache.created(channel: e.channel)
+        }
+        
+        self.on { (e: Channel.Renamed, b: Bot) in
+            channelCache.renamed(channel: e.channel)
+        }
+    }
+    
+    public func connect() {
+        setupGroup.notify(queue: .main) {
+            let rules = self.ruleController
+            self.connection = SlackConnection(configuration: self.configuration, eventHandler: {
+                rules.process(event: $0)
+            })
+        }
     }
     
     
@@ -38,12 +81,12 @@ public final class Bot {
         ruleController.add(skipRule: rule)
     }
     
-    public func on<T: EventType>(_ action: @escaping (T, Bot) -> Void) {
-        self.on(when: { _ in return .handle }, action: action)
+    public func on<T: EventType>(_ help: String? = nil, _ action: @escaping (T, Bot) -> Void) {
+        self.on(help: help, when: { _ in return .handle }, action: action)
     }
     
-    public func on<T: EventType>(when: @escaping (T) -> RuleDisposition, action: @escaping (T, Bot) -> Void) {
-        let rule = Rule<T>(when: when, action: { [weak self] e, c in
+    public func on<T: EventType>(help: String? = nil, when: @escaping (T) -> RuleDisposition, action: @escaping (T, Bot) -> Void) {
+        let rule = Rule<T>(help: help, when: when, action: { [weak self] e, c in
             defer { c() }
             guard let bot = self else { return }
             action(e, bot)
@@ -52,93 +95,27 @@ public final class Bot {
     }
     
     public func execute<A: SlackActionType>(action: A, asAdmin: Bool = false, completion: @escaping (Result<A.ResponseType>) -> Void) {
-        var token = configuration.authToken
-        if asAdmin == true || action.requiresAdminToken {
-            guard let adminToken = configuration.adminToken else {
-                let error = NSError(domain: "BotKit", code: 1, userInfo: [NSLocalizedDescriptionKey: "Action requires admin token, but no admin token was provided"])
-                completion(.error(error))
-                return
-            }
-            token = adminToken
-        }
-        
-        var c = URLComponents()
-        c.scheme = "https"
-        c.host = "slack.com"
-        c.path = "/api/\(action.method)"
-        
-        // don't allow an action to specify their own token
-        let actionParameters = action.parameters.filter { $0.name != "token" }
-        let allParameters = [URLQueryItem(name: "token", value: token)] + actionParameters
-        
-        if action.httpMethod == "GET" {
-            c.queryItems = allParameters
-        }
-        
-        guard let url = c.url else {
-            fatalError("Unable to construct URL for action \(action)")
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = action.httpMethod
-        
-        if request.httpMethod != "GET" {
-            let bodyParameters = allParameters.map { q -> String in
-                let k = q.name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-                let v = q.value?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-                return k + "=" + v
-            }
-            let body = bodyParameters.joined(separator: "&")
-            request.httpBody = body.data(using: .utf8)
-            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        }
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                completion(.error(error))
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorBadServerResponse, userInfo: nil)
-                completion(.error(error))
-                return
-            }
-            
-            guard 200 ..< 300 ~= httpResponse.statusCode else {
-                let error = NSError(domain: "HTTP", code: httpResponse.statusCode, userInfo: ["response": httpResponse])
-                completion(.error(error))
-                return
-            }
-            
-            guard let data = data else {
-                let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorZeroByteResource, userInfo: nil)
-                completion(.error(error))
-                return
-            }
-            
-            guard let json = try? JSON(data: data) else {
-                let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotDecodeRawData, userInfo: nil)
-                completion(.error(error))
-                return
-            }
-            
-            guard json["ok"].bool == true else {
-                let message = json["error"].string ?? "Unknown Slack API Error"
-                let error = NSError(domain: "Slack", code: 1, userInfo: [NSLocalizedDescriptionKey: message])
-                completion(.error(error))
-                return
-            }
-            
-            do {
-                let response = try action.constructResponse(json: json)
-                completion(.value(response))
-            } catch let e {
-                completion(.error(e))
-            }
-        }
-        
-        task.resume()
+        actionController.execute(action: action, asAdmin: asAdmin, completion: completion)
+    }
+    
+}
+
+extension Bot {
+
+    public func name(for user: User) -> String {
+        return userCache.name(for: user)
+    }
+    
+    public func name(for user: Identifier<User>) -> String {
+        return userCache.name(for: user)
+    }
+    
+    public func name(for channel: Channel) -> String {
+        return channelCache.name(for: channel)
+    }
+    
+    public func name(for channel: Identifier<Channel>) -> String {
+        return channelCache.name(for: channel)
     }
     
 }

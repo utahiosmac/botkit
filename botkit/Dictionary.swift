@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal extension Dictionary {
+public extension Dictionary {
     
     init(_ elements: Array<Element>) {
         self.init(minimumCapacity: elements.count)
@@ -28,6 +28,16 @@ internal extension Dictionary {
     
     func mapValues<NewValue>(_ block: (Value) throws -> NewValue) rethrows -> Dictionary<Key, NewValue> {
         return try map { try ($0, block($1)) }
+    }
+    
+    func values(for keys: Array<Key>) -> Array<Value> {
+        var final = Array<Value>()
+        for key in keys {
+            if let value = self[key] {
+                final.append(value)
+            }
+        }
+        return final
     }
     
 }

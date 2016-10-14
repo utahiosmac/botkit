@@ -42,7 +42,7 @@ internal class WebSocket: NSObject {
 
 extension WebSocket: SRWebSocketDelegate {
     
-    func webSocketDidOpen(_ webSocket: SRWebSocket!) {
+    func webSocketDidOpen(_ webSocket: SRWebSocket) {
         let intervalInNSec = pingInterval * Double(NSEC_PER_SEC)
         let startTime = DispatchTime.now() + Double(intervalInNSec) / Double(NSEC_PER_SEC)
         
@@ -64,24 +64,24 @@ extension WebSocket: SRWebSocketDelegate {
         timerSource.resume()
     }
     
-    func webSocket(_ webSocket: SRWebSocket!, didReceivePong pongPayload: Data!) {
+    func webSocket(_ webSocket: SRWebSocket, didReceivePong pongData: Data?) {
         self.receivedLastPong = true
     }
     
-    func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
+    func webSocket(_ webSocket: SRWebSocket, didReceiveMessage message: Any) {
         // messages from the socket can either be NSData or NSString
         // we don't particularly care about data messages
         guard let string = message as? String else { return }
         onEvent?(string)
     }
     
-    func webSocket(_ webSocket: SRWebSocket!, didFailWithError error: NSError!) {
+    func webSocket(_ webSocket: SRWebSocket, didFailWithError error: Error) {
         // save the error we can pass it back through the onClose closure
-        socketError = error
+        socketError = error as NSError
         close()
     }
     
-    func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+    func webSocket(_ webSocket: SRWebSocket, didCloseWithCode code: Int, reason: String?, wasClean: Bool) {
         // tear it all down
         close()
     }

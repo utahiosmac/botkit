@@ -58,7 +58,7 @@ internal class RuleController {
         if waitUntilDone {
             let sem = DispatchSemaphore(value: 0)
             notifyOfCompletion = { sem.signal() }
-            waitUntilCompletion = { sem.wait(timeout: DispatchTime.distantFuture) }
+            waitUntilCompletion = { _ = sem.wait(timeout: DispatchTime.distantFuture) }
         } else {
             notifyOfCompletion = { }
             waitUntilCompletion = { }
@@ -70,6 +70,6 @@ internal class RuleController {
         // if waitUntilDone is false, then we will likely return here before the rule has finished executing its action
         // that's ok, because we've already indicated that we don't need other rules to execute
         return (disposition == .handleAndAbort) ? .abort : .continue
-        
     }
+    
 }

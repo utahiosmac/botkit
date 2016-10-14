@@ -13,7 +13,7 @@ public protocol SlackActionType {
     
     var method: String { get }
     
-    var httpMethod: String { get }
+    var httpMethod: HTTP.Method { get }
     var parameters: Array<URLQueryItem> { get }
     var httpBody: JSON { get }
     var requiresAdminToken: Bool { get }
@@ -23,7 +23,7 @@ public protocol SlackActionType {
 }
 
 extension SlackActionType {
-    public var httpMethod: String { return "GET" }
+    public var httpMethod: HTTP.Method { return .get }
     public var parameters: Array<URLQueryItem> { return [] }
     public var httpBody: JSON { return .unknown }
     public var requiresAdminToken: Bool { return false }
@@ -39,4 +39,22 @@ extension SlackActionType where ResponseType: JSONInitializable {
             return try ResponseType.init(json: json)
         }
     }
+}
+
+public struct Raw<A: SlackActionType>: SlackActionType {
+    public typealias ResponseType = JSON
+ 
+    private let innerAction: A
+    
+    public var method: String { return innerAction.method }
+    public var httpMethod: HTTP.Method { return innerAction.httpMethod }
+    public var parameters: Array<URLQueryItem> { return innerAction.parameters }
+    public var httpBody: JSON { return innerAction.httpBody }
+    public var requiresAdminToken: Bool { return innerAction.requiresAdminToken }
+    
+    init(_ action: A) {
+        innerAction = action
+    }
+    
+    public func constructResponse(json: JSON) throws -> JSON { return json }
 }

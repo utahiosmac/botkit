@@ -10,14 +10,22 @@ import Foundation
 
 internal protocol RuleType {
     
+    var help: String? { get }
     func handle(event: JSON, completion: () -> Void) -> RuleDisposition
     
 }
 
 internal struct Rule<T: EventType>: RuleType {
     
+    let help: String?
     let when: (T) -> RuleDisposition
     let action: (T, () -> Void) -> Void
+    
+    init(help: String? = nil, when: @escaping (T) -> RuleDisposition, action: @escaping (T, () -> Void) -> Void) {
+        self.help = help
+        self.when = when
+        self.action = action
+    }
     
     func handle(event: JSON, completion: () -> Void) -> RuleDisposition {
         guard let builtEvent = try? T.init(json: event) else {
