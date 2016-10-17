@@ -14,7 +14,7 @@ public extension Channel {
         public let channel: Channel
         public let user: User
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "channel_created")
             channel = try json.value(for: "channel")
             user = try json["channel"].value(for: "creator")
@@ -24,7 +24,7 @@ public extension Channel {
     public struct Deleted: EventType {
         public let channel: Channel
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "channel_deleted")
             channel = try json.value(for: "channel")
         }
@@ -33,7 +33,7 @@ public extension Channel {
     public struct Renamed: EventType {
         public let channel: Channel
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "channel_renamed")
             channel = try json.value(for: "channel")
         }
@@ -43,7 +43,7 @@ public extension Channel {
         public let channel: Channel
         public let user: User
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "channel_archive")
             channel = try json.value(for: "channel")
             user = try json.value(for: "user")
@@ -54,7 +54,7 @@ public extension Channel {
         public let channel: Channel
         public let user: User
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "channel_unarchive")
             channel = try json.value(for: "channel")
             user = try json.value(for: "user")
@@ -66,7 +66,7 @@ public extension Channel {
         public let user: User
         public let purpose: String
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "message")
             try json.match(subtype: "channel_purpose")
             
@@ -81,7 +81,7 @@ public extension Channel {
         public let user: User
         public let topic: String
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "message")
             try json.match(subtype: "channel_topic")
             
@@ -95,7 +95,7 @@ public extension Channel {
         public let channel: Channel
         public let user: User
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "message")
             try json.match(subtype: "channel_join")
             channel = try json.value(for: "channel")
@@ -107,7 +107,7 @@ public extension Channel {
         public let channel: Channel
         public let user: User
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "message")
             try json.match(subtype: "channel_leave")
             channel = try json.value(for: "channel")
@@ -118,7 +118,7 @@ public extension Channel {
     public struct Joined: EventType {
         public let channel: Channel
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "channel_joined")
             channel = try json.value(for: "channel")
         }
@@ -127,7 +127,7 @@ public extension Channel {
     public struct Left: EventType {
         public let channel: Channel
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "channel_left")
             channel = try json.value(for: "channel")
         }
@@ -136,7 +136,7 @@ public extension Channel {
     public struct MessagePosted: EventType {
         public let message: Message
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "message")
             guard json["subtype"].isUnknown else { throw JSONError("Event type is a specialized Message") }
             

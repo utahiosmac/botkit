@@ -29,7 +29,7 @@ internal class RuleController {
         rules.append(rule)
     }
     
-    internal func process(event: String) {
+    internal func process(event: String, from bot: Bot) {
         guard let data = event.data(using: .utf8) else { return }
         guard let json = try? JSON(data: data) else { return }
         guard json.isUnknown == false else {
@@ -37,21 +37,21 @@ internal class RuleController {
             return
         }
         
-        let action = send(event: json, to: skips, waitUntilDone: true)
+        let action = send(event: json, to: skips, from: bot, waitUntilDone: true)
         if action == .continue {
-            _ = send(event: json, to: rules, waitUntilDone: false)
+            _ = send(event: json, to: rules, from: bot, waitUntilDone: false)
         }
     }
     
-    private func send(event: JSON, to rules: Array<RuleType>, waitUntilDone: Bool) -> RuleAction {
+    private func send(event: JSON, to rules: Array<RuleType>, from bot: Bot, waitUntilDone: Bool) -> RuleAction {
         for rule in rules {
-            let ruleAction = send(event: event, to: rule, waitUntilDone: waitUntilDone)
+            let ruleAction = send(event: event, to: rule, from: bot, waitUntilDone: waitUntilDone)
             if ruleAction == .abort { return .abort }
         }
         return .continue
     }
     
-    private func send(event: JSON, to rule: RuleType, waitUntilDone: Bool) -> RuleAction {
+    private func send(event: JSON, to rule: RuleType, from bot: Bot, waitUntilDone: Bool) -> RuleAction {
         let notifyOfCompletion: (Void) -> Void
         let waitUntilCompletion: (Void) -> Void
         
@@ -64,7 +64,7 @@ internal class RuleController {
             waitUntilCompletion = { }
         }
         
-        let disposition = rule.handle(event: event, completion: notifyOfCompletion)
+        let disposition = rule.handle(event: event, from: bot, completion: notifyOfCompletion)
         waitUntilCompletion()
         
         // if waitUntilDone is false, then we will likely return here before the rule has finished executing its action

@@ -13,7 +13,7 @@ public extension Emoji {
     public struct Added: EventType {
         public let emoji: Emoji
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "emoji_changed")
             try json.match(subtype: "add")
             
@@ -24,7 +24,7 @@ public extension Emoji {
     public struct Removed: EventType {
         public let names: Array<String>
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "emoji_changed")
             try json.match(subtype: "remove")
             

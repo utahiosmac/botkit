@@ -8,7 +8,9 @@
 
 import Foundation
 
-public protocol EventType: JSONInitializable {
+public protocol EventType {
+    
+    init(json: JSON, bot: Bot) throws
     
 }
 

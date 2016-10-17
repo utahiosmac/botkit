@@ -10,7 +10,7 @@ import Foundation
 
 public struct Startup: EventType {
     
-    public init(json: JSON) throws {
+    public init(json: JSON, bot: Bot) throws {
         try json.match(type: "hello")
     }
     

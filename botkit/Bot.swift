@@ -67,8 +67,9 @@ public final class Bot {
     public func connect() {
         setupGroup.notify(queue: .main) {
             let rules = self.ruleController
-            self.connection = SlackConnection(configuration: self.configuration, eventHandler: {
-                rules.process(event: $0)
+            self.connection = SlackConnection(configuration: self.configuration, eventHandler: { [weak self] in
+                guard let strongSelf = self else { return }
+                rules.process(event: $0, from: strongSelf)
             })
         }
     }

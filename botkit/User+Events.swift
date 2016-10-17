@@ -13,7 +13,7 @@ public extension User {
     public struct Joined: EventType {
         public let user: User
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "team_join")
             user = try json.value(for: "user")
         }
@@ -22,7 +22,7 @@ public extension User {
     public struct Changed: EventType {
         public let user: User
         
-        public init(json: JSON) throws {
+        public init(json: JSON, bot: Bot) throws {
             try json.match(type: "user_change")
             user = try json.value(for: "user")
         }
