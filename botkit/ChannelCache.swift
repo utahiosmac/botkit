@@ -14,7 +14,9 @@ internal class ChannelCache {
     fileprivate let cacheFile: URL
     
     fileprivate let actionController: ActionController
+    
     fileprivate var cache = Dictionary<String, JSON>()
+    fileprivate var kinds = Dictionary<String, Channel.Kind>()
     
     init(configuration: Bot.Configuration, actionController: ActionController, setupComplete: @escaping () -> Void) {
         self.actionController = actionController

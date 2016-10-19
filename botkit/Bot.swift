@@ -99,6 +99,10 @@ public final class Bot {
         actionController.execute(action: action, asAdmin: asAdmin, completion: completion)
     }
     
+    public func ruleHelps() -> Array<String> {
+        return ruleController.helps()
+    }
+    
 }
 
 extension Bot {
@@ -118,5 +122,13 @@ extension Bot {
     public func name(for channel: Identifier<Channel>) -> String {
         return channelCache.name(for: channel)
     }
+    
+//    public func kind(for channel: Channel) -> Channel.Kind {
+//        return kind(for: channel.identifier)
+//    }
+//    
+//    public func kind(for channel: Identifier<Channel>) -> Channel.Kind {
+//        
+//    }
     
 }

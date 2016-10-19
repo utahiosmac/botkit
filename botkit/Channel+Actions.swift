@@ -57,18 +57,19 @@ public extension Channel {
             self.init(channel: channel.identifier.value, message: message, as: name)
         }
         
-        public init(channel: Identifier<Channel>, message: String, as name: String = "help") {
+        public init(channel: Identifier<Channel>, message: String, as name: String = "help", ephemeral: Bool = false) {
             self.init(channel: channel.value, message: message, as: name)
         }
         
-        public init(channel: String, message: String, as name: String = "help") {
+        public init(channel: String, message: String, as name: String = "help", ephemeral: Bool = false) {
             parameters = [
                 URLQueryItem(name: "channel", value: channel),
                 URLQueryItem(name: "text", value: message),
                 URLQueryItem(name: "parse", value: "full"),
                 URLQueryItem(name: "username", value: name),
                 URLQueryItem(name: "as_user", value: "false"),
-                URLQueryItem(name: "link_names", value: "1")
+                URLQueryItem(name: "link_names", value: "1"),
+                URLQueryItem(name: "response_type", value: ephemeral ? "ephemeral" : "in_channel")
             ]
         }
         

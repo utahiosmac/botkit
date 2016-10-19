@@ -21,6 +21,10 @@ internal class RuleController {
     
     }
     
+    internal func helps() -> Array<String> {
+        return rules.flatMap { $0.help }
+    }
+    
     internal func add(skipRule: RuleType) {
         skips.append(skipRule)
     }

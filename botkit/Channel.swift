@@ -9,6 +9,14 @@
 import Foundation
 
 public struct Channel: Hashable, CustomStringConvertible {
+    
+    public enum Kind {
+        case `public`   /// a regular, public channel
+        case `private`  /// a regular, private channel
+        case direct     /// a direct messaging channel to a single user
+        case group      /// a direct messaging channel to multiple users
+    }
+    
     public static func ==(lhs: Channel, rhs: Channel) -> Bool { return lhs.identifier == rhs.identifier }
     public var hashValue: Int { return identifier.hashValue }
     

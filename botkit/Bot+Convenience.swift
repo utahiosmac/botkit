@@ -49,10 +49,10 @@ public extension Bot {
         execute(action: message.add(reaction: emoji), completion: { _ in })
     }
     
-    func reply(to message: Message, with text: String) {
+    func reply(to message: Message, with text: String, ephemeral: Bool = false) {
         let name = self.name(for: message.user)
         let response = "@\(name) \(text)"
-        post(response, in: message.channel)
+        post(response, in: message.channel, ephemeral: ephemeral)
     }
     
 }
@@ -63,17 +63,17 @@ public extension Bot {
         execute(action: Channel.List(), completion: completion)
     }
     
-    func post(_ message: String, in channel: String, completion: @escaping (Result<Message>) -> Void = { _ in }) {
-        let action = Channel.PostMessage(channel: channel, message: message)
+    func post(_ message: String, in channel: String, ephemeral: Bool = false, completion: @escaping (Result<Message>) -> Void = { _ in }) {
+        let action = Channel.PostMessage(channel: channel, message: message, ephemeral: ephemeral)
         execute(action: action, completion: completion)
     }
     
-    func post(_ message: String, in channel: Channel, completion: @escaping (Result<Message>) -> Void = { _ in }) {
-        post(message, in: channel.identifier.value, completion: completion)
+    func post(_ message: String, in channel: Channel, ephemeral: Bool = false, completion: @escaping (Result<Message>) -> Void = { _ in }) {
+        post(message, in: channel.identifier.value, ephemeral: ephemeral, completion: completion)
     }
     
-    func post(_ message: String, in channel: Identifier<Channel>, completion: @escaping (Result<Message>) -> Void = { _ in }) {
-        post(message, in: channel.value, completion: completion)
+    func post(_ message: String, in channel: Identifier<Channel>, ephemeral: Bool = false, completion: @escaping (Result<Message>) -> Void = { _ in }) {
+        post(message, in: channel.value, ephemeral: ephemeral, completion: completion)
     }
     
 }
