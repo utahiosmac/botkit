@@ -31,3 +31,19 @@ public extension Collection {
         return d
     }
 }
+
+public extension Collection where Iterator.Element: Hashable {
+    
+    func unique() -> Array<Iterator.Element> {
+        var uniqued = Array<Iterator.Element>()
+        var soFar = Set<Iterator.Element>()
+        for item in self {
+            if soFar.contains(item) == false {
+                uniqued.append(item)
+                soFar.insert(item)
+            }
+        }
+        return uniqued
+    }
+    
+}
