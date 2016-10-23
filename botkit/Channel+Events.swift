@@ -143,4 +143,29 @@ public extension Channel {
             message = try Message(json: json)
         }
     }
+    
+    public struct SnippetPosted: EventType {
+        public let channel: Channel
+        public let filename: String
+        public let mimetype: String
+        public let downloadURL: URL
+        
+        public init(json: JSON, bot: Bot) throws {
+            try json.match(type: "message")
+            try json.match(subtype: "file_share")
+
+            channel = try json.value(for: "channel")
+            
+            let file = json["file"]
+            filename = try file.value(for: "name")
+            mimetype = try file.value(for: "mimetype")
+            
+            let urlAsString: String = try file.value(for: "url_private_download")
+            guard let url = URL(string: urlAsString) else {
+                throw JSONError("`url_private_download` is expected to be a valid URL")
+            }
+            
+            downloadURL = url
+        }
+    }
 }

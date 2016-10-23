@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49D846B01DBD519500677795 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D846AF1DBD519500677795 /* File.swift */; };
 		550F90131DB522EC00A4A3F8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F90121DB522EC00A4A3F8 /* String.swift */; };
 		55107A271C5545620034B209 /* SlackActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55107A261C5545620034B209 /* SlackActionType.swift */; };
 		551680391DA5A9F4005832C1 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551680381DA5A9F4005832C1 /* Team.swift */; };
@@ -84,6 +85,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		49D846AF1DBD519500677795 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		550F90121DB522EC00A4A3F8 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		55107A261C5545620034B209 /* SlackActionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackActionType.swift; sourceTree = "<group>"; };
 		551680321DA55D56005832C1 /* SocketRocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketRocket.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HelpBot-gmfqduoposnqybatjjcfyfwvflql/Build/Products/Debug/SocketRocket.framework"; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				55F20F5B1DA548CF00A598E2 /* Emoji.swift */,
 				55F20F611DA551A000A598E2 /* Message.swift */,
 				551680381DA5A9F4005832C1 /* Team.swift */,
+				49D846AF1DBD519500677795 /* File.swift */,
 			);
 			name = "Slack Model";
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				55F20F5A1DA4B76800A598E2 /* Emoji+Events.swift in Sources */,
 				555E0EBD1C530E0900E6BB92 /* WebSocket.swift in Sources */,
 				559E246F1DA84D0500E75FE7 /* Bot+Convenience.swift in Sources */,
+				49D846B01DBD519500677795 /* File.swift in Sources */,
 				555E0EC41C531D2E00E6BB92 /* SlackConnection.swift in Sources */,
 				5526B2E31DB81CA20091CE63 /* CommandEvent.swift in Sources */,
 				556D33DB1DB7CB6300C4971F /* JSON+JSONInitializable.swift in Sources */,
